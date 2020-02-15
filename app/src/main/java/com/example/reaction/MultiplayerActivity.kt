@@ -11,11 +11,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MultiplayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_multiplayer)
         val flags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -89,6 +89,16 @@ class MainActivity : AppCompatActivity() {
                     countdownTextView.textSize = 36f
                     countdownTextView.text = resources.getString(R.string.ready)
                     countdownTextView.isClickable = false
+
+                    button1.setOnClickListener {
+                        player2Score++
+                        player2ScoreTextView.text = player2Score.toString()
+                    }
+
+                    button2.setOnClickListener {
+                        player1Score++
+                        player1ScoreTextView.text = player1Score.toString()
+                    }
                 }
 
                 @SuppressLint("SetTextI18n")
