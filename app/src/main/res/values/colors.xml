@@ -2,14 +2,14 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorAccent">#e6b2c6</color>
     <color name="colorGold">#FED876</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorVeryDarkGray">#303841</color>
     <color name="colorDarkGray">#3a4750</color>
-    <color name="colorPrimaryRed">#d72323</color>
+    <color name="colorPrimaryRed">#ca3e47</color>
     <color name="colorPrimaryWhite">#f3f3f3</color>
     <color name="colorDirtyWhite">#ebe6e6</color>
     <color name="colorGrayPink">#e8d4b4</color>
-    <color name="colorOrange">#ff7315</color>
+    <color name="colorOrange">#393e46</color>
 </resources>

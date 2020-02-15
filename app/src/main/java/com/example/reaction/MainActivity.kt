@@ -1,7 +1,9 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.reaction
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.os.*
 import android.view.View
 import android.view.WindowManager
@@ -89,8 +91,9 @@ class MainActivity : AppCompatActivity() {
                     countdownTextView.isClickable = false
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onFinish() {
-                    countdownTextView.setTextColor(resources.getColor(R.color.colorOrange))
+                    countdownTextView.setTextColor(resources.getColor(R.color.colorPrimaryRed))
                     countdownTextView.textSize = 72f
                     countdownTextView.text = resources.getString(R.string.go)
                     countdownTextView.isClickable = true
