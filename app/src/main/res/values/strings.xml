@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">React</string>
+    <string name="ready">Ready…</string>
+    <string name="tap">Tap</string>
+    <string name="start">Start</string>
+    <string name="go">Go!</string>
+</resources>
