@@ -4,4 +4,7 @@
     <string name="tap">Tap</string>
     <string name="start">Start</string>
     <string name="go">Go!</string>
+    <string name="computerButton">Computer button</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="singleplayer">Singleplayer</string>
 </resources>

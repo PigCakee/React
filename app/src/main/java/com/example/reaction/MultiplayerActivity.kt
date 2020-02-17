@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.math.absoluteValue
 
 class MultiplayerActivity : AppCompatActivity() {
 
@@ -80,10 +81,8 @@ class MultiplayerActivity : AppCompatActivity() {
             button1.text = resources.getString(R.string.tap)
             button2.text = resources.getString(R.string.tap)
 
-            button1.setOnClickListener(null)
-            button2.setOnClickListener(null)
 
-            object : CountDownTimer((1000..10000).random().toLong(), 1000) {
+            object : CountDownTimer((2500..8000).random().toLong(), 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     countdownTextView.setTextColor(resources.getColor(R.color.colorWhite))
                     countdownTextView.textSize = 36f
@@ -110,12 +109,14 @@ class MultiplayerActivity : AppCompatActivity() {
                     countdownTextView.text = resources.getString(R.string.go)
 
                     button1.setOnClickListener {
-                        val currentTime = System.currentTimeMillis() - (50..70).random()
-                        button1Time = (currentTime - zeroTime).toInt()
+                        val currentTime = System.currentTimeMillis() - (50..80).random()
+                        button1Time = (currentTime - zeroTime).toInt().absoluteValue
                         button1.text = "${button1Time / 1000}.${button1Time % 1000}"
-                        player1ScoreTextView.text = player1Score.toString()
 
-                        if (button2.hasOnClickListeners()) player1Score += 1
+                        if (button2.hasOnClickListeners()) {
+                            player1Score += 1
+                            player1ScoreTextView.text = player1Score.toString()
+                        }
                         it.setOnClickListener(null)
 
                         vibrate()
@@ -124,11 +125,13 @@ class MultiplayerActivity : AppCompatActivity() {
 
                     button2.setOnClickListener  {
                         val currentTime = System.currentTimeMillis() - (50..70).random()
-                        button2Time = (currentTime - zeroTime).toInt()
+                        button2Time = (currentTime - zeroTime).toInt().absoluteValue
                         button2.text = "${button2Time / 1000}.${button2Time % 1000}"
-                        player2ScoreTextView.text = player2Score.toString()
 
-                        if (button1.hasOnClickListeners()) player2Score += 1
+                        if (button1.hasOnClickListeners()) {
+                            player2Score += 1
+                            player2ScoreTextView.text = player2Score.toString()
+                        }
                         it.setOnClickListener(null)
 
                         vibrate()
