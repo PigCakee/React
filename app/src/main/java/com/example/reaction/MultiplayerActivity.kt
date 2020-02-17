@@ -103,37 +103,37 @@ class MultiplayerActivity : AppCompatActivity() {
 
                 @SuppressLint("SetTextI18n")
                 override fun onFinish() {
+                    val zeroTime = System.currentTimeMillis()
+
                     countdownTextView.setTextColor(resources.getColor(R.color.colorPrimaryRed))
                     countdownTextView.textSize = 72f
                     countdownTextView.text = resources.getString(R.string.go)
-                    countdownTextView.isClickable = true
-
-                    val zeroTime = System.currentTimeMillis()
 
                     button1.setOnClickListener {
+                        val currentTime = System.currentTimeMillis() - (50..70).random()
+                        button1Time = (currentTime - zeroTime).toInt()
+                        button1.text = "${button1Time / 1000}.${button1Time % 1000}"
+                        player1ScoreTextView.text = player1Score.toString()
+
                         if (button2.hasOnClickListeners()) player1Score += 1
                         it.setOnClickListener(null)
 
                         vibrate()
-
-                        val currentTime = System.currentTimeMillis()
-                        button1Time = (currentTime - zeroTime).toInt()
-                        button1.text = "${button1Time / 1000}.${button1Time % 1000}"
-                        player1ScoreTextView.text = player1Score.toString()
                     }
 
 
                     button2.setOnClickListener  {
+                        val currentTime = System.currentTimeMillis() - (50..70).random()
+                        button2Time = (currentTime - zeroTime).toInt()
+                        button2.text = "${button2Time / 1000}.${button2Time % 1000}"
+                        player2ScoreTextView.text = player2Score.toString()
+
                         if (button1.hasOnClickListeners()) player2Score += 1
                         it.setOnClickListener(null)
 
                         vibrate()
-
-                        val currentTime = System.currentTimeMillis()
-                        button2Time = (currentTime - zeroTime).toInt()
-                        button2.text = "${button2Time / 1000}.${button2Time % 1000}"
-                        player2ScoreTextView.text = player2Score.toString()
                     }
+                    countdownTextView.isClickable = true
                 }
             }.start()
         }
