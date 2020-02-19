@@ -7,9 +7,9 @@ import android.content.Context
 import android.os.*
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_multiplayer.*
 import kotlin.math.absoluteValue
 
 class MultiplayerActivity : AppCompatActivity() {
@@ -34,11 +34,8 @@ class MultiplayerActivity : AppCompatActivity() {
             }
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        val button1: Button = findViewById(R.id.button3)
-        val button2: Button = findViewById(R.id.button4)
         val player1ScoreTextView: TextView = findViewById(R.id.player1Score)
         val player2ScoreTextView: TextView = findViewById(R.id.player2Score)
-        val countdownTextView: TextView = findViewById(R.id.countdownTextView)
 
         val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val canVibrate: Boolean = vibrator.hasVibrator()
@@ -109,7 +106,7 @@ class MultiplayerActivity : AppCompatActivity() {
                     countdownTextView.text = resources.getString(R.string.go)
 
                     button1.setOnClickListener {
-                        val currentTime = System.currentTimeMillis() - (50..80).random()
+                        val currentTime = System.currentTimeMillis() - (50..100).random()
                         button1Time = (currentTime - zeroTime).toInt().absoluteValue
                         button1.text = "${button1Time / 1000}.${button1Time % 1000}"
 
@@ -122,9 +119,8 @@ class MultiplayerActivity : AppCompatActivity() {
                         vibrate()
                     }
 
-
                     button2.setOnClickListener  {
-                        val currentTime = System.currentTimeMillis() - (50..70).random()
+                        val currentTime = System.currentTimeMillis() - (50..100).random()
                         button2Time = (currentTime - zeroTime).toInt().absoluteValue
                         button2.text = "${button2Time / 1000}.${button2Time % 1000}"
 

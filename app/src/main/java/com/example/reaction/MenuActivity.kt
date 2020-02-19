@@ -7,11 +7,8 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-
+import kotlinx.android.synthetic.main.menu_activity.*
 
 @Suppress("DEPRECATION")
 class MenuActivity : AppCompatActivity() {
@@ -40,10 +37,6 @@ class MenuActivity : AppCompatActivity() {
                 }
             }
         }
-
-        val gamemodeTextView: TextView = findViewById(R.id.gamemodeTextView)
-        val playButton: ImageView = findViewById(R.id.playButton)
-        val gamemodeSwitch: Switch = findViewById(R.id.gamemodeSwitch)
 
         playButton.setOnClickListener {
             vibrate()

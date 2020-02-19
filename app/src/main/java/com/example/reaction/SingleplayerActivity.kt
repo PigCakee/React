@@ -5,9 +5,9 @@ import android.content.Context
 import android.os.*
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_singleplayer.*
 import kotlin.math.absoluteValue
 
 @Suppress("DEPRECATION")
@@ -33,11 +33,8 @@ class SingleplayerActivity : AppCompatActivity() {
             }
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        val computerButton: Button = findViewById(R.id.computerButton)
-        val playerButton: Button = findViewById(R.id.playerButton)
         val playerScoreTextView: TextView = findViewById(R.id.playerScore)
         val computerScoreTextView: TextView = findViewById(R.id.computerScore)
-        val countdownTextView: TextView = findViewById(R.id.countdownTextView2)
 
         val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val canVibrate: Boolean = vibrator.hasVibrator()
@@ -97,7 +94,7 @@ class SingleplayerActivity : AppCompatActivity() {
                     countdownTextView.text = resources.getString(R.string.go)
 
                     playerButton.setOnClickListener {
-                        val currentTime = System.currentTimeMillis() - (50..80).random()
+                        val currentTime = System.currentTimeMillis() - (50..100).random()
                         playerTime = (currentTime - zeroTime).toInt().absoluteValue
                         computerTime = (200..500).random()
 
