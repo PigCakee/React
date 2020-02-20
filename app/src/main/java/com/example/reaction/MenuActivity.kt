@@ -38,25 +38,21 @@ class MenuActivity : AppCompatActivity() {
             }
         }
         tournamentTextView.setOnClickListener {
-            vibrate()
             val intent: Intent = Intent(this, TournamentActivity::class.java)
             startActivity(intent)
         }
 
         playWithFriendTextView.setOnClickListener {
-            vibrate()
             val intent: Intent = Intent(this, MultiplayerActivity::class.java)
             startActivity(intent)
         }
 
         duelsTextView.setOnClickListener {
-            vibrate()
             val intent: Intent = Intent(this, DuelsActivity::class.java)
             startActivity(intent)
         }
 
         shopTextView.setOnClickListener {
-            vibrate()
             val intent: Intent = Intent(this, ShopActivity::class.java)
             startActivity(intent)
         }
