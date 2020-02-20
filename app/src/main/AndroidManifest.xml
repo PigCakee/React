@@ -28,9 +28,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".DuelsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".TournamentActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".ShopActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
+
 
 </manifest>

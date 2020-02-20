@@ -19,7 +19,7 @@ class MenuActivity : AppCompatActivity() {
 
         val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val canVibrate: Boolean = vibrator.hasVibrator()
-        val milliseconds = 25L
+        val milliseconds = 15L
 
         fun vibrate(){
             if (canVibrate) {
@@ -37,25 +37,24 @@ class MenuActivity : AppCompatActivity() {
                 }
             }
         }
-
-        playButton.setOnClickListener {
-            vibrate()
-            if (gamemodeTextView.text == resources.getString(R.string.singleplayer)){
-                val intent = Intent(this, SingleplayerActivity::class.java)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, MultiplayerActivity::class.java)
-                startActivity(intent)
-            }
+        tournamentTextView.setOnClickListener {
+            val intent: Intent = Intent(this, TournamentActivity::class.java)
+            startActivity(intent)
         }
 
-        gamemodeSwitch.setOnClickListener {
-            vibrate()
-            if (gamemodeTextView.text == resources.getString(R.string.singleplayer)){
-                gamemodeTextView.text = resources.getString(R.string.multiplayer)
-            } else {
-                gamemodeTextView.text = resources.getString(R.string.singleplayer)
-            }
+        playWithFriendTextView.setOnClickListener {
+            val intent: Intent = Intent(this, MultiplayerActivity::class.java)
+            startActivity(intent)
+        }
+
+        duelsTextView.setOnClickListener {
+            val intent: Intent = Intent(this, DuelsActivity::class.java)
+            startActivity(intent)
+        }
+
+        shopTextView.setOnClickListener {
+            val intent: Intent = Intent(this, ShopActivity::class.java)
+            startActivity(intent)
         }
     }
 }

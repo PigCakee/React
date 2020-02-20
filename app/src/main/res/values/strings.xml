@@ -7,4 +7,8 @@
     <string name="computerButton">Computer button</string>
     <string name="multiplayer">Multiplayer</string>
     <string name="singleplayer">Singleplayer</string>
+    <string name="tournament">Tournament</string>
+    <string name="shop">Shop</string>
+    <string name="duels">Duels</string>
+    <string name="playWithFriend">Play with friend</string>
 </resources>
