@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.reaction.ui.menu
 
 import android.content.Context
@@ -11,7 +13,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.reaction.R
+import com.example.reaction.ui.duels.DuelsFragment
 import com.example.reaction.ui.multiplayer.MultiplayerFragment
+import com.example.reaction.ui.shop.ShopFragment
+import com.example.reaction.ui.tournament.TournamentFragment
 import kotlinx.android.synthetic.main.menu_fragment.*
 
 class MenuFragment : Fragment() {
@@ -59,7 +64,7 @@ class MenuFragment : Fragment() {
         tournamentTextView.setOnClickListener {
             vibrate()
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, MultiplayerFragment.newInstance())
+                ?.replace(R.id.container, TournamentFragment.newInstance())
                 ?.commitNow()
             //TODO change fragment
         }
@@ -74,7 +79,7 @@ class MenuFragment : Fragment() {
         duelsTextView.setOnClickListener {
             vibrate()
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, MultiplayerFragment.newInstance())
+                ?.replace(R.id.container, DuelsFragment.newInstance())
                 ?.commitNow()
             //TODO change fragment
         }
@@ -82,7 +87,7 @@ class MenuFragment : Fragment() {
         shopTextView.setOnClickListener {
             vibrate()
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, MultiplayerFragment.newInstance())
+                ?.replace(R.id.container, ShopFragment.newInstance())
                 ?.commitNow()
             //TODO change fragment
         }
