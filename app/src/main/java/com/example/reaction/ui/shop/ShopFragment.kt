@@ -1,5 +1,7 @@
 package com.example.reaction.ui.shop
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +18,8 @@ class ShopFragment : Fragment() {
     }
 
     private lateinit var viewModel: ShopViewModel
-    private lateinit var player: Player
+    private var sharedPreferences: SharedPreferences? = null
+    private var player = Player()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,11 +33,18 @@ class ShopFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ShopViewModel::class.java)
         //TODO: use viewModel
-        player.load(activity!!.parent)
+
+        sharedPreferences = activity?.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
+        if (sharedPreferences != null) {
+            player.load(sharedPreferences!!)
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        player.save(activity!!.parent)
+        sharedPreferences = activity?.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
+        if (sharedPreferences != null) {
+            player.save(sharedPreferences!!)
+        }
     }
 }
