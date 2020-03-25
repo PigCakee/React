@@ -12,6 +12,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.reaction.game.Gun
 import com.example.reaction.game.Player
+import com.example.reaction.ui.menu.MenuFragment
 import com.example.reaction.ui.multiplayer.MultiplayerFragment
 import kotlinx.android.synthetic.main.menu_activity.*
 
@@ -28,56 +29,9 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.menu_activity)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        val canVibrate: Boolean = vibrator.hasVibrator()
-        val milliseconds = 15L
-
-        fun vibrate(){
-            if (canVibrate) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    // API 26
-                    vibrator.vibrate(
-                        VibrationEffect.createOneShot(
-                            milliseconds,
-                            VibrationEffect.DEFAULT_AMPLITUDE
-                        )
-                    )
-                } else {
-                    // This method was deprecated in API level 26
-                    vibrator.vibrate(milliseconds)
-                }
-            }
-        }
-
-        player = loadPlayer()
-
-        tournamentTextView.setOnClickListener {
-            vibrate()
-            val intent = Intent(this, TournamentActivity::class.java)
-            //intent.putExtra(Player::class.java.canonicalName, player)
-            startActivity(intent)
-        }
-
-        playWithFriendTextView.setOnClickListener {
-            vibrate()
-            //val intent = Intent(this, MultiplayerActivity::class.java)
-            //startActivity(intent)
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MultiplayerFragment.newInstance())
-                .commitNow()
-        }
-
-        duelsTextView.setOnClickListener {
-            vibrate()
-            val intent = Intent(this, DuelsActivity::class.java)
-            startActivity(intent)
-        }
-
-        shopTextView.setOnClickListener {
-            vibrate()
-            val intent = Intent(this, ShopActivity::class.java)
-            startActivity(intent)
-        }
+        supportFragmentManager.beginTransaction() //set up and display menu fragment
+            .replace(R.id.container, MenuFragment.newInstance())
+            .commitNow()
     }
 
     override fun onResume() {
