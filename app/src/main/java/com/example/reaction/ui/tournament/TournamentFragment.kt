@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.reaction.R
+import com.example.reaction.game.Player
 
 class TournamentFragment : Fragment() {
     companion object {
@@ -15,6 +16,7 @@ class TournamentFragment : Fragment() {
     }
 
     private lateinit var viewModel: TournamentViewModel
+    private lateinit var player: Player
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,5 +30,11 @@ class TournamentFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TournamentViewModel::class.java)
         //TODO: use viewModel
+        player.load(activity!!.parent)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        player.save(activity!!.parent)
     }
 }

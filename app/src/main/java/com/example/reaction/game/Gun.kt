@@ -2,6 +2,7 @@ package com.example.reaction.game
 
 class Gun private constructor(val name: String) {
     var delay = 0.0
+    var load = 0
     var icon = 0 //TODO реализовать подгрузку иконок
 
     companion object Factory{
@@ -11,6 +12,7 @@ class Gun private constructor(val name: String) {
                "default" -> {
                    gun.delay = 0.1
                    //gun.icon =
+                   gun.load = 5
                }
             }
             return gun

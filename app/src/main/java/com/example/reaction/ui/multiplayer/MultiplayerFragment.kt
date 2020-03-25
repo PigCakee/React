@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.reaction.R
+import com.example.reaction.game.Player
 
 class MultiplayerFragment : Fragment() {
 
@@ -16,6 +17,7 @@ class MultiplayerFragment : Fragment() {
     }
 
     private lateinit var viewModel: MultiplayerViewModel
+    private lateinit var player: Player
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,5 +31,11 @@ class MultiplayerFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MultiplayerViewModel::class.java)
         // TODO: Use the ViewModel
+        player.load(activity!!.parent)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        player.save(activity!!.parent)
     }
 }
