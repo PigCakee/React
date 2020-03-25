@@ -12,6 +12,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.reaction.game.Gun
 import com.example.reaction.game.Player
+import com.example.reaction.ui.multiplayer.MultiplayerFragment
 import kotlinx.android.synthetic.main.menu_activity.*
 
 
@@ -59,8 +60,11 @@ class MenuActivity : AppCompatActivity() {
 
         playWithFriendTextView.setOnClickListener {
             vibrate()
-            val intent = Intent(this, MultiplayerActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this, MultiplayerActivity::class.java)
+            //startActivity(intent)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MultiplayerFragment.newInstance())
+                .commitNow()
         }
 
         duelsTextView.setOnClickListener {
