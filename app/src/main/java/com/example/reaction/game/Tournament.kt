@@ -24,4 +24,19 @@ class Tournament(val name: String) {
         if (reactionTime <= reactionTimeRequired.second) player.money += reward.second
         if (reactionTime <= reactionTimeRequired.third) player.money += reward.third
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Tournament
+
+        if (name != other.name) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return name.hashCode()
+    }
 }
