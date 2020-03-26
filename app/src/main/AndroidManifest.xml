@@ -10,15 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MultiplayerActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity android:name=".SingleplayerActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
 
         <activity android:name=".MenuActivity"
             android:screenOrientation="portrait">
@@ -29,20 +20,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DuelsActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity android:name=".TournamentActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity android:name=".ShopActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
