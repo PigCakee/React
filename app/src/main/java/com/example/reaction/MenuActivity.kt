@@ -1,11 +1,8 @@
 package com.example.reaction
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.example.reaction.game.Player
 import com.example.reaction.ui.menu.MenuFragment
 
 class MenuActivity : AppCompatActivity() {

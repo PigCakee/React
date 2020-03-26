@@ -4,10 +4,7 @@ package com.example.reaction.ui.menu
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +16,7 @@ import com.example.reaction.ui.duels.DuelsFragment
 import com.example.reaction.ui.multiplayer.MultiplayerFragment
 import com.example.reaction.ui.shop.ShopFragment
 import com.example.reaction.ui.tournament.TournamentFragment
+import com.example.reaction.util.Vibrator
 import kotlinx.android.synthetic.main.menu_fragment.*
 
 class MenuFragment : Fragment() {
@@ -30,6 +28,8 @@ class MenuFragment : Fragment() {
     private lateinit var viewModel: MenuViewModel
     private var sharedPreferences: SharedPreferences? = null
     private var player = Player()
+    private var milliseconds = 15L
+    private val vibrator = Vibrator(activity)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,29 +49,10 @@ class MenuFragment : Fragment() {
             player.load(sharedPreferences!!)
         }
 
-        val vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        val canVibrate: Boolean = vibrator.hasVibrator()
-        val milliseconds = 15L
-
-        fun vibrate(){
-            if (canVibrate) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    // API 26
-                    vibrator.vibrate(
-                        VibrationEffect.createOneShot(
-                            milliseconds,
-                            VibrationEffect.DEFAULT_AMPLITUDE
-                        )
-                    )
-                } else {
-                    // This method was deprecated in API level 26
-                    vibrator.vibrate(milliseconds)
-                }
-            }
-        }
+        val vibrator = Vibrator(activity)
 
         tournamentTextView.setOnClickListener {
-            vibrate()
+            vibrator.vibrate(milliseconds)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, TournamentFragment.newInstance())
                 ?.commitNow()
@@ -79,14 +60,14 @@ class MenuFragment : Fragment() {
         }
 
         playWithFriendTextView.setOnClickListener {
-            vibrate()
+            vibrator.vibrate(milliseconds)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, MultiplayerFragment.newInstance())
                 ?.commitNow()
         }
 
         duelsTextView.setOnClickListener {
-            vibrate()
+            vibrator.vibrate(milliseconds)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, DuelsFragment.newInstance())
                 ?.commitNow()
@@ -94,7 +75,7 @@ class MenuFragment : Fragment() {
         }
 
         shopTextView.setOnClickListener {
-            vibrate()
+            vibrator.vibrate(milliseconds)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, ShopFragment.newInstance())
                 ?.commitNow()
