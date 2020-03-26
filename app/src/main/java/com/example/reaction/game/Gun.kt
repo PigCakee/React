@@ -3,6 +3,7 @@ package com.example.reaction.game
 class Gun (val name: String) {
     var delay = 0.0
     var load = 0
+    var cost = 0
     var icon = 0 //TODO реализовать подгрузку иконок
 
     companion object Factory{
