@@ -42,14 +42,11 @@ class MenuFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MenuViewModel::class.java)
-        // TODO: Use the ViewModel
 
         sharedPreferences = activity?.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
         if (sharedPreferences != null) {
             player.load(sharedPreferences!!)
         }
-
-        val vibrator = Vibrator(activity)
 
         tournamentTextView.setOnClickListener {
             vibrator.vibrate(milliseconds)
@@ -57,7 +54,6 @@ class MenuFragment : Fragment() {
                 ?.replace(R.id.container, TournamentFragment.newInstance())
                 ?.addToBackStack("backStack")
                 ?.commit()
-            //TODO change fragment
         }
 
         playWithFriendTextView.setOnClickListener {
@@ -74,7 +70,6 @@ class MenuFragment : Fragment() {
                 ?.replace(R.id.container, DuelsFragment.newInstance())
                 ?.addToBackStack("backStack")
                 ?.commit()
-            //TODO change fragment
         }
 
         shopTextView.setOnClickListener {
@@ -83,7 +78,6 @@ class MenuFragment : Fragment() {
                 ?.replace(R.id.container, ShopFragment.newInstance())
                 ?.addToBackStack("backStack")
                 ?.commit()
-            //TODO change fragment
         }
     }
 
