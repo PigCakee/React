@@ -1,7 +1,5 @@
 package com.example.reaction.game
 
-import android.app.Activity
-import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 
@@ -10,19 +8,10 @@ class Player (
 ) {
     var ratingTournament: Int = 0
     var ratingDuels: Int = 0
-    var gun: Gun? = null
+    var gun: Gun? = Gun("default")
     var money: Int = 0
     var progress: Int = 0
     val preferences: String = "playerSettings"
-
-    companion object {
-        fun newInstance()
-            = Player()
-    }
-
-    override fun toString(): String {
-        return gun?.name ?: "ERROR_NO_GUN_NAME"
-    }
 
     fun save(sharedPreferences: SharedPreferences){
         val editor = sharedPreferences.edit()

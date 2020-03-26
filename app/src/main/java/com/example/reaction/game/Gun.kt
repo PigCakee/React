@@ -1,6 +1,6 @@
 package com.example.reaction.game
 
-class Gun private constructor(val name: String) {
+class Gun (val name: String) {
     var delay = 0.0
     var load = 0
     var icon = 0 //TODO реализовать подгрузку иконок
@@ -17,5 +17,9 @@ class Gun private constructor(val name: String) {
             }
             return gun
         }
+    }
+
+    override fun toString(): String {
+        return this.name
     }
 }
