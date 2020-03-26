@@ -15,7 +15,8 @@ class MenuActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction() //set up and display menu fragment
             .replace(R.id.container, MenuFragment.newInstance())
-            .commitNow()
+            .addToBackStack("backStack")
+            .commit()
     }
 }
 

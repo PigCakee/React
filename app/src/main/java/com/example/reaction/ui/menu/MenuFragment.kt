@@ -55,7 +55,8 @@ class MenuFragment : Fragment() {
             vibrator.vibrate(milliseconds)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, TournamentFragment.newInstance())
-                ?.commitNow()
+                ?.addToBackStack("backStack")
+                ?.commit()
             //TODO change fragment
         }
 
@@ -63,14 +64,16 @@ class MenuFragment : Fragment() {
             vibrator.vibrate(milliseconds)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, MultiplayerFragment.newInstance())
-                ?.commitNow()
+                ?.addToBackStack("backStack")
+                ?.commit()
         }
 
         duelsTextView.setOnClickListener {
             vibrator.vibrate(milliseconds)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, DuelsFragment.newInstance())
-                ?.commitNow()
+                ?.addToBackStack("backStack")
+                ?.commit()
             //TODO change fragment
         }
 
@@ -78,7 +81,8 @@ class MenuFragment : Fragment() {
             vibrator.vibrate(milliseconds)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, ShopFragment.newInstance())
-                ?.commitNow()
+                ?.addToBackStack("backStack")
+                ?.commit()
             //TODO change fragment
         }
     }
