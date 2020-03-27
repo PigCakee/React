@@ -5,16 +5,17 @@ import android.os.CountDownTimer
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.reaction.util.Vibrator
+import kotlin.math.absoluteValue
 
 
 class MultiplayerViewModel : ViewModel() {
     var activity: Activity? = null
-    private val vibrator = Vibrator(activity)
+    private var vibrator = Vibrator(activity)
     private val milliseconds = 15L
     var zeroTime: Long = 0
 
     var readyTextView = ObservableField<String>()
-    //var readyTextViewColor: Color =
+    //var readyTextViewColor: Color = //TODO implement color changes
     var readyTextViewClickable = ObservableField<Boolean>()
 
     var firstPlayerScore = ObservableField<String>()
@@ -32,6 +33,8 @@ class MultiplayerViewModel : ViewModel() {
     var isTicking: Boolean = false
 
     fun playGame(){
+        vibrator = Vibrator(activity)
+
         readyTextView.set("Start")
         readyTextViewClickable.set(true)
 
@@ -49,7 +52,7 @@ class MultiplayerViewModel : ViewModel() {
     fun playRound(){
         vibrator.vibrate(milliseconds)
 
-        //readyTextViewColor = R.color.colorPrimaryRed
+        //readyTextViewColor = R.color.colorPrimaryRed //TODO implement color changes
 
         firstPlayerButtonClickable.set(true)
         secondPlayerButtonClickable.set(true)
@@ -83,7 +86,7 @@ class MultiplayerViewModel : ViewModel() {
             if (firstPlayerTime - zeroTime < secondPlayerTime) {
                 firstPlayerScore.set("${(firstPlayerScore.get()!!.toInt() + 1)}")
             }
-            firstButtonText.set("${(firstPlayerTime - zeroTime) / 1000}.${(firstPlayerTime - zeroTime) % 1000}")
+            firstButtonText.set("${(firstPlayerTime - zeroTime).absoluteValue / 1000}.${(firstPlayerTime - zeroTime).absoluteValue % 1000}")
         }
     }
 
@@ -96,7 +99,7 @@ class MultiplayerViewModel : ViewModel() {
             if (secondPlayerTime - zeroTime < firstPlayerTime) {
                 secondPlayerScore.set("${(secondPlayerScore.get()!!.toInt() + 1)}")
             }
-            secondButtonText.set("${(secondPlayerTime - zeroTime) / 1000}.${(secondPlayerTime - zeroTime) % 1000}")
+            secondButtonText.set("${(secondPlayerTime - zeroTime).absoluteValue / 1000}.${(secondPlayerTime - zeroTime).absoluteValue % 1000}")
         }
     }
 }

@@ -15,6 +15,7 @@ import com.example.reaction.ui.shop.ShopFragment
 import com.example.reaction.ui.tournament.TournamentFragment
 import com.example.reaction.util.Vibrator
 import kotlinx.android.synthetic.main.menu_fragment.*
+import android.util.Log
 
 class MenuFragment : Fragment() {
     companion object {
@@ -23,8 +24,8 @@ class MenuFragment : Fragment() {
     }
 
     private lateinit var viewModel: MenuViewModel
-    private var milliseconds = 15L
-    private val vibrator = Vibrator(activity)
+    private var milliseconds = 10L
+    private lateinit var vibrator: Vibrator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +38,8 @@ class MenuFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MenuViewModel::class.java)
+
+        vibrator = Vibrator(activity)
 
         tournamentTextView.setOnClickListener {
             vibrator.vibrate(milliseconds)
