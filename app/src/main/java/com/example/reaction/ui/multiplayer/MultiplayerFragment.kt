@@ -27,6 +27,7 @@ class MultiplayerFragment : Fragment() {
         val binding: MultiplayerFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.multiplayer_fragment, container, false)
         val view: View = binding.root
         binding.multiplayerViewModel = ViewModelProviders.of(this).get(MultiplayerViewModel::class.java)
+        (binding.multiplayerViewModel as MultiplayerViewModel).activity = activity
         (binding.multiplayerViewModel as MultiplayerViewModel).playGame()
         return view
     }
