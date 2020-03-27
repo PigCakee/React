@@ -11,7 +11,7 @@ import kotlin.math.absoluteValue
 class MultiplayerViewModel : ViewModel() {
     var activity: Activity? = null
     private var vibrator = Vibrator(activity)
-    private val milliseconds = 15L
+    private val milliseconds = 10L
     var zeroTime: Long = 0
 
     var readyTextView = ObservableField<String>()
@@ -21,8 +21,8 @@ class MultiplayerViewModel : ViewModel() {
     var firstPlayerScore = ObservableField<String>()
     var secondPlayerScore = ObservableField<String>()
 
-    private var firstPlayerTime: Long = 1000000000000L
-    private var secondPlayerTime: Long = 1000000000000L
+    private var firstPlayerTime: Long = Long.MAX_VALUE
+    private var secondPlayerTime: Long = Long.MAX_VALUE
 
     var firstPlayerButtonClickable = ObservableField<Boolean>()
     var secondPlayerButtonClickable = ObservableField<Boolean>()
@@ -38,8 +38,8 @@ class MultiplayerViewModel : ViewModel() {
         readyTextView.set("Start")
         readyTextViewClickable.set(true)
 
-        firstPlayerScore.set(0.toString())
-        secondPlayerScore.set(0.toString())
+        firstPlayerScore.set("0")
+        secondPlayerScore.set("0")
 
         firstPlayerButtonClickable.set(false)
         secondPlayerButtonClickable.set(false)
