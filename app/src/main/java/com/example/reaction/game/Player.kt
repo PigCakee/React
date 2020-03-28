@@ -7,7 +7,7 @@ class Player (
 
 ) {
     var ratingTournament: Int = 0
-    var ratingDuels: Int = 0
+    var ratingDuels: Int = 5
     var gun: Gun? = Gun("default")
     var money: Int = 0
     var progress: Int = 0
@@ -25,8 +25,8 @@ class Player (
     }
 
     fun load(sharedPreferences: SharedPreferences){
-        ratingTournament = sharedPreferences.getInt("PLAYER_RATING_TOURNAMENT", 0)
-        ratingDuels = sharedPreferences.getInt("PLAYER_RATING_DUELS", 0)
+        ratingTournament = sharedPreferences.getInt("PLAYER_RATING_TOURNAMENT", 5)
+        ratingDuels = sharedPreferences.getInt("PLAYER_RATING_DUELS", 5)
         val gunName = sharedPreferences.getString("PLAYER_GUN", "NO_NAME") ?: "NO_NAME"
         gun = Gun.makeGun(gunName)
         money = sharedPreferences.getInt("PLAYER_MONEY", 0)
