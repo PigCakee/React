@@ -26,9 +26,11 @@ class DuelsFragment : Fragment() {
     ): View {
         val binding: DuelsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.duels_fragment, container, false)
         val view: View = binding.root
+
         binding.viewModel = ViewModelProviders.of(this).get(DuelsViewModel::class.java)
         (binding.viewModel as DuelsViewModel).activity = activity
         (binding.viewModel as DuelsViewModel).context = this.context
+
         return view
     }
 
@@ -40,11 +42,19 @@ class DuelsFragment : Fragment() {
 
         val liveData: LiveData<Boolean> = viewModel.changeFragment
         liveData.observe(viewLifecycleOwner, Observer {
-            if (viewModel.changeFragment.value == true)
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, DuelsGameFragment.newInstance())
-                ?.addToBackStack("backStack")
-                ?.commit()
+            if (viewModel.changeFragment.value == true) {
+
+                val bundle = Bundle()
+                bundle.putInt("EnemyNumber", viewModel.number)
+
+                val duelsGameFragment = DuelsGameFragment.newInstance()
+                duelsGameFragment.arguments = bundle
+
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, duelsGameFragment)
+                    ?.addToBackStack("backStack")
+                    ?.commit()
+            }
         })
 
         avatarImageView.setImageResource(R.drawable.bandit_john)

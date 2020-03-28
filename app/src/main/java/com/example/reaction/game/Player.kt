@@ -33,5 +33,7 @@ class Player (
         progress = sharedPreferences.getInt("PLAYER_PROGRESS", 0)
         Log.d("PLAYER", "Player Loaded")
     }
+
+    //TODO make player a singleton
 }
 
