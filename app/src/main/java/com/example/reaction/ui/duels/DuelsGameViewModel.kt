@@ -20,7 +20,7 @@ class DuelsGameViewModel : ViewModel() {
     private val milliseconds = 10L
 
     private var sharedPreferences: SharedPreferences? = null
-    val player = Player()
+    private val player = Player()
 
     var enemyScore = ObservableField<Int>()
     var playerScore = ObservableField<Int>()
@@ -40,14 +40,16 @@ class DuelsGameViewModel : ViewModel() {
     private var playerTime: Long = Long.MAX_VALUE
     private var enemyTime: Long = Long.MAX_VALUE
 
-    val playerButtonClickable = ObservableField<Boolean>(true)
+    val playerButtonClickable = ObservableField(true)
 
-    val playerButtonText = ObservableField<String>("Shoot")
-    val enemyButtonText = ObservableField<String>("Enemy")
+    val playerButtonText = ObservableField("Shoot")
+    val enemyButtonText = ObservableField("Enemy")
 
-    val canPlayLiveData = MutableLiveData<Boolean>(canPlayRound)
+    val canPlayLiveData = MutableLiveData(canPlayRound)
 
-    val isWon = false
+    var isWon = false
+
+    private var enemyReaction = Long.MAX_VALUE
 
     fun playGame(){
         if (context != null) {
@@ -57,6 +59,9 @@ class DuelsGameViewModel : ViewModel() {
                 player.load(sharedPreferences!!)
             }
 
+            val enemy: Enemy = Enemy.newEnemyByNumber(enemyNumber, context!!)
+            enemyReaction = enemy.reaction
+
             enemyScore.set(0)
             playerScore.set(0)
 
@@ -65,17 +70,18 @@ class DuelsGameViewModel : ViewModel() {
         }
     }
 
-    fun playRound(player: Player, enemyNumber: Int){
+    fun playRound(){
         //TODO set the layout
         if (canPlayRound) {
             vibrator.vibrate(milliseconds)
 
-            val enemy: Enemy
-            if (context != null) {
-                enemy = Enemy.newEnemyByNumber(enemyNumber, context!!)
 
+            if (context != null) {
                 readyTextView.set("Ready...")
                 readyTextViewClickable.set(false)
+
+                playerButtonText.set("Shoot")
+                enemyButtonText.set("Enemy")
 
                 playerButtonClickable.set(true)
 
@@ -91,7 +97,6 @@ class DuelsGameViewModel : ViewModel() {
                         zeroTime = System.currentTimeMillis()
                         isTicking = false
                         readyTextView.set("Go!")
-                        onEnemyReaction(enemy)
                         readyTextViewClickable.set(canPlayRound)
                     }
                 }.start()
@@ -101,15 +106,14 @@ class DuelsGameViewModel : ViewModel() {
 
     fun onPlayerButtonClick(){
         playerTime = (System.currentTimeMillis() - (50..100).random() - zeroTime).absoluteValue
+        enemyTime = (enemyReaction-50..enemyReaction+50).random()
+        Log.d("RANGE1", "enemyTime${enemyTime}, playerTime${playerTime}")
         vibrator.vibrate(milliseconds)
         if (isTicking && enemyScore.get() != null) {
             enemyScore.set((enemyScore.get()!! + 1))
             playerButtonClickable.set(false)
-
-            if (enemyScore.get() == 5) canPlayRound = false
-
-            //TODO play shot sound
-            //TODO animate shot
+            //TODO animate miss shot
+            //TODO animate enemy shooting down player
         }
         else {
             playerButtonClickable.set(false)
@@ -117,30 +121,28 @@ class DuelsGameViewModel : ViewModel() {
             if (playerTime < enemyTime) {
                 playerScore.set((playerScore.get()!!.toInt() + 1))
             }
-
             playerButtonText.set("${playerTime / 1000}.${playerTime % 1000}")
 
-            if (playerScore.get() == 5) canPlayRound = false
+            if (enemyTime < playerTime) {
+                enemyScore.set(enemyScore.get()!! + 1)
+            }
+            enemyButtonText.set("${enemyTime/ 1000}.${enemyTime % 1000}")
+
+
+            //TODO play shot sound
+            //TODO animate shot
         }
-    }
 
-    fun onEnemyReaction(enemy: Enemy){
-        enemyTime = (enemy.reaction-50..enemy.reaction+50).random()
-        object : CountDownTimer(enemyTime, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-            }
+        if (playerScore.get() == 5) {
+            canPlayRound = false
+            canPlayLiveData.value = canPlayRound
+            isWon = true
+        }
 
-            override fun onFinish() {
-                Log.d("RANGE", "enemyTime${enemyTime}, playerTime${playerTime}")
-                if (enemyTime < playerTime) {
-                    enemyScore.set(enemyScore.get()!! + 1)
-                }
-                enemyButtonText.set("${enemyTime/ 1000}.${enemyTime % 1000}")
-
-                if (enemyScore.get() == 5) canPlayRound = false
-            }
-        }.start()
-        //TODO play shot sound
-        //TODO animate shot
+        if (enemyScore.get() == 5) {
+            canPlayRound = false
+            canPlayLiveData.value = canPlayRound
+            isWon = false
+        }
     }
 }
