@@ -24,7 +24,7 @@ class DuelsGameViewModel : ViewModel() {
     private val milliseconds = 10L
 
     private var sharedPreferences: SharedPreferences? = null
-    private val player = Player()
+    private val player = Player.getInstance()
     private var gun = Gun.makeGun("default")
 
     var enemyScore = ObservableField<Int>()

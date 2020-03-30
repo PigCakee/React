@@ -3,15 +3,27 @@ package com.example.reaction.game
 import android.content.SharedPreferences
 import android.util.Log
 
-class Player (
-
-) {
+object Player  {
+    private var instance: Player? = null
     var ratingTournament: Int = 0
     var ratingDuels: Int = 5
     var gun: Gun? = Gun("default")
     var money: Int = 0
     var progress: Int = 0
-    val preferences: String = "playerSettings"
+    const val preferences: String = "playerSettings"
+
+    @Synchronized
+    private fun createInstance() {
+        if (instance == null) {
+            Log.d("Player", "Created")
+            instance = Player
+        }
+    }
+
+    fun getInstance(): Player{
+        if (instance == null) createInstance()
+        return instance!!
+    }
 
     fun save(sharedPreferences: SharedPreferences){
         val editor = sharedPreferences.edit()
@@ -33,7 +45,4 @@ class Player (
         progress = sharedPreferences.getInt("PLAYER_PROGRESS", 0)
         Log.d("PLAYER", "Player Loaded")
     }
-
-    //TODO make player a singleton
 }
-

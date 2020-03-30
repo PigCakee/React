@@ -27,7 +27,7 @@ class DuelsViewModel : ViewModel() {
     private var borders = Pair(1, 3)
 
     private var sharedPreferences: SharedPreferences? = null
-    private var player = Player()
+    private var player = Player.getInstance()
 
     fun playGame(number: Int){
         if (context != null) {

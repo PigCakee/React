@@ -20,7 +20,7 @@ class ShopFragment : Fragment() {
 
     private lateinit var viewModel: ShopViewModel
     private var sharedPreferences: SharedPreferences? = null
-    private var player = Player()
+    private var player = Player.getInstance()
     private var milliseconds = 50L
     private val vibrator = Vibrator(activity)
 
