@@ -39,7 +39,7 @@ class DuelsViewModel : ViewModel() {
             if (sharedPreferences != null) {
                 player.load(sharedPreferences!!)
             }
-
+            Log.d("PLAYER_RATING_DUELS", player.ratingDuels.toString())
             if (player.ratingDuels >= enemy.requiredRating) {
                 this.number = 1
                 changeFragment.value = true

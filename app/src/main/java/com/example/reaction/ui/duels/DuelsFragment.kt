@@ -1,6 +1,7 @@
 package com.example.reaction.ui.duels
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,7 @@ class DuelsFragment : Fragment() {
         viewModel.avatarImageView = avatarImageView
 
         val liveData: LiveData<Boolean> = viewModel.changeFragment
+        Log.d("Message", viewModel.changeFragment.value.toString())
         liveData.observe(viewLifecycleOwner, Observer {
             if (viewModel.changeFragment.value == true) {
 

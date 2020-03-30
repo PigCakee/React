@@ -161,5 +161,6 @@ class DuelsGameViewModel : ViewModel() {
 
     fun onOkButtonClick(){
         removeFragment.value = true
+        removeFragment.value = false
     }
 }

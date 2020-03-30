@@ -3,6 +3,7 @@
 package com.example.reaction.ui.multiplayer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class MultiplayerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("Multiplayer", "Started")
         val binding: MultiplayerFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.multiplayer_fragment, container, false)
         val view: View = binding.root
         binding.multiplayerViewModel = ViewModelProviders.of(this).get(MultiplayerViewModel::class.java)

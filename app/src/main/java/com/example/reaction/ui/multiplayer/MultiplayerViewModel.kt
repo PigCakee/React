@@ -57,6 +57,9 @@ class MultiplayerViewModel : ViewModel() {
         firstPlayerButtonClickable.set(true)
         secondPlayerButtonClickable.set(true)
 
+        firstPlayerTime = Long.MAX_VALUE
+        secondPlayerTime = Long.MAX_VALUE
+
         firstButtonText.set("Tap")
         secondButtonText.set("Tap")
 
@@ -79,7 +82,10 @@ class MultiplayerViewModel : ViewModel() {
 
     fun onFirstButtonCLick(){
         vibrator.vibrate(milliseconds)
-        if (isTicking && secondPlayerScore.get() != null) secondPlayerScore.set((secondPlayerScore.get()!!.toInt() + 1).toString())
+        if (isTicking && secondPlayerScore.get() != null) {
+            firstPlayerButtonClickable.set(false)
+            secondPlayerScore.set((secondPlayerScore.get()!!.toInt() + 1).toString())
+        }
         else {
             firstPlayerTime = System.currentTimeMillis() - (50..100).random()
             firstPlayerButtonClickable.set(false)
@@ -92,7 +98,10 @@ class MultiplayerViewModel : ViewModel() {
 
     fun onSecondButtonClick(){
         vibrator.vibrate(milliseconds)
-        if (isTicking && firstPlayerScore.get() != null) firstPlayerScore.set((firstPlayerScore.get()!!.toInt() + 1).toString())
+        if (isTicking && firstPlayerScore.get() != null) {
+            secondPlayerButtonClickable.set(false)
+            firstPlayerScore.set((firstPlayerScore.get()!!.toInt() + 1).toString())
+        }
         else {
             secondPlayerTime = System.currentTimeMillis() - (50..100).random()
             secondPlayerButtonClickable.set(false)
