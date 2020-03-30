@@ -1,7 +1,7 @@
 package com.example.reaction.game
 
 class Gun (val name: String) {
-    var delay = 0.0
+    var delay = 0L
     var load = 0
     var cost = 0
     var icon = 0 //TODO реализовать подгрузку иконок
@@ -11,7 +11,7 @@ class Gun (val name: String) {
             val gun = Gun(name)
             when (name){
                "default" -> {
-                   gun.delay = 0.1
+                   gun.delay = 100L
                    //gun.icon =
                    gun.load = 5
                }

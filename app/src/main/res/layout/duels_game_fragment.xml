@@ -26,6 +26,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorGold"
+            android:elevation="8dp"
+            android:visibility="@{viewModel.endgameLayoutVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/mainLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/gameResultTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{viewModel.winText}"
+                    android:textColor="@android:color/black"
+                    android:textSize="36sp" />
+
+                <LinearLayout
+                    android:id="@+id/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/okButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@android:string/ok"
+                        android:onClick="@{(view) -> viewModel.onOkButtonClick()}"/>
+
+                    <Button
+                        android:id="@+id/tryAgainButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Try Again"
+                        android:onClick="@{(view) -> viewModel.onTryAgainButtonCLick()}"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </TableLayout>
+
         <Button
             android:id="@+id/playerButton"
             android:layout_width="wrap_content"
@@ -61,7 +114,7 @@
             android:layout_height="wrap_content"
             android:text="@{viewModel.readyTextView}"
             android:clickable="@{viewModel.readyTextViewClickable}"
-            android:onClick="@{(view) -> viewModel.playRound(viewModel.player, viewModel.enemyNumber)}"
+            android:onClick="@{(view) -> viewModel.playRound()}"
             app:layout_constraintBottom_toTopOf="@+id/playerScoreTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

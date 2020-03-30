@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.example.reaction.game.Enemy
+import com.example.reaction.game.Gun
 import com.example.reaction.game.Player
 import com.example.reaction.util.Vibrator
 import kotlin.math.absoluteValue
@@ -16,40 +18,40 @@ class DuelsGameViewModel : ViewModel() {
     var activity: Activity? = null
     var context: Context? = null
 
+    var removeFragment: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+
     private var vibrator = Vibrator(activity)
     private val milliseconds = 10L
 
     private var sharedPreferences: SharedPreferences? = null
     private val player = Player()
+    private var gun = Gun.makeGun("default")
 
     var enemyScore = ObservableField<Int>()
     var playerScore = ObservableField<Int>()
-
     var enemyNumber: Int = 1
 
     var isTicking: Boolean = false
-
     var zeroTime: Long = 0
 
     var readyTextView = ObservableField<String>()
     //var readyTextViewColor: Color = //TODO implement color changes
     var readyTextViewClickable = ObservableField<Boolean>()
 
-    private var canPlayRound: Boolean = true
-
     private var playerTime: Long = Long.MAX_VALUE
     private var enemyTime: Long = Long.MAX_VALUE
 
-    val playerButtonClickable = ObservableField(true)
+    val playerButtonClickable: ObservableField<Boolean> = ObservableField()
 
-    val playerButtonText = ObservableField("Shoot")
-    val enemyButtonText = ObservableField("Enemy")
+    val playerButtonText: ObservableField<String> = ObservableField()
+    val enemyButtonText: ObservableField<String> = ObservableField()
 
-    val canPlayLiveData = MutableLiveData(canPlayRound)
+    var endgameLayoutVisibility: ObservableField<Int> = ObservableField()
 
-    var isWon = false
+    var winText: ObservableField<String> = ObservableField()
 
-    private var enemyReaction = Long.MAX_VALUE
+    private var enemyReaction: Long = Long.MAX_VALUE
+    private var reward = 0
 
     fun playGame(){
         if (context != null) {
@@ -57,57 +59,65 @@ class DuelsGameViewModel : ViewModel() {
                 activity?.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
             if (sharedPreferences != null) {
                 player.load(sharedPreferences!!)
+                Log.d("Guns", "playerGun${player.gun!!.delay} gun${gun.delay}")
+                gun = player.gun!!
             }
+
+            removeFragment.value = false
+            endgameLayoutVisibility.set(View.INVISIBLE)
 
             val enemy: Enemy = Enemy.newEnemyByNumber(enemyNumber, context!!)
             enemyReaction = enemy.reaction
+            reward = enemy.reward
+
+            playerButtonText.set("Shoot")
+            enemyButtonText.set("Enemy")
 
             enemyScore.set(0)
             playerScore.set(0)
 
             readyTextView.set("Start")
             readyTextViewClickable.set(true)
+            playerButtonClickable.set(true)
         }
     }
 
     fun playRound(){
         //TODO set the layout
-        if (canPlayRound) {
-            vibrator.vibrate(milliseconds)
+        vibrator.vibrate(milliseconds)
+        if (context != null) {
+            readyTextView.set("Ready...")
+            readyTextViewClickable.set(false)
 
+            playerButtonText.set("Shoot")
+            enemyButtonText.set("Enemy")
 
-            if (context != null) {
-                readyTextView.set("Ready...")
-                readyTextViewClickable.set(false)
+            playerButtonClickable.set(true)
 
-                playerButtonText.set("Shoot")
-                enemyButtonText.set("Enemy")
+            playerTime = Long.MAX_VALUE
+            enemyTime = Long.MAX_VALUE
 
-                playerButtonClickable.set(true)
+            object : CountDownTimer((2500..8000).random().toLong(), 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    isTicking = true
+                }
 
-                playerTime = Long.MAX_VALUE
-                enemyTime = Long.MAX_VALUE
-
-                object : CountDownTimer((2500..8000).random().toLong(), 1000) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        isTicking = true
-                    }
-
-                    override fun onFinish() {
-                        zeroTime = System.currentTimeMillis()
-                        isTicking = false
-                        readyTextView.set("Go!")
-                        readyTextViewClickable.set(canPlayRound)
-                    }
-                }.start()
-            }
+                override fun onFinish() {
+                    zeroTime = System.currentTimeMillis()
+                    isTicking = false
+                    readyTextView.set("Go!")
+                    readyTextViewClickable.set(true)
+                }
+            }.start()
         }
+
     }
 
+
     fun onPlayerButtonClick(){
-        playerTime = (System.currentTimeMillis() - (50..100).random() - zeroTime).absoluteValue
+        playerTime = (System.currentTimeMillis() - (50..100).random() - zeroTime).absoluteValue + gun.delay
         enemyTime = (enemyReaction-50..enemyReaction+50).random()
-        Log.d("RANGE1", "enemyTime${enemyTime}, playerTime${playerTime}")
+        Log.d("RANGE1", "enemyTime${enemyTime}, playerTime${playerTime}, gunDelay${gun.delay}")
         vibrator.vibrate(milliseconds)
         if (isTicking && enemyScore.get() != null) {
             enemyScore.set((enemyScore.get()!! + 1))
@@ -133,16 +143,23 @@ class DuelsGameViewModel : ViewModel() {
             //TODO animate shot
         }
 
-        if (playerScore.get() == 5) {
-            canPlayRound = false
-            canPlayLiveData.value = canPlayRound
-            isWon = true
+        if (playerScore.get() == 1) {
+            endgameLayoutVisibility.set(View.VISIBLE)
+            winText.set("You won!")
+            player.money += reward
         }
 
-        if (enemyScore.get() == 5) {
-            canPlayRound = false
-            canPlayLiveData.value = canPlayRound
-            isWon = false
+        if (enemyScore.get() == 1) {
+            endgameLayoutVisibility.set(View.VISIBLE)
+            winText.set("You lost")
         }
+    }
+
+    fun onTryAgainButtonCLick(){
+        playGame()
+    }
+
+    fun onOkButtonClick(){
+        removeFragment.value = true
     }
 }

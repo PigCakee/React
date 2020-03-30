@@ -41,6 +41,7 @@ class DuelsViewModel : ViewModel() {
             }
 
             if (player.ratingDuels >= enemy.requiredRating) {
+                this.number = 1
                 changeFragment.value = true
                 changeFragment.value = false
             }

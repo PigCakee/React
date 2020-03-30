@@ -18,5 +18,7 @@ class MenuActivity : AppCompatActivity() {
             .addToBackStack("backStack")
             .commit()
     }
+
+    //TODO set the UI (big play button and screen picture
 }
 
