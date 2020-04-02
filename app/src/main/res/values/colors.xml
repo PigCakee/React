@@ -11,5 +11,6 @@
     <color name="colorPrimaryWhite">#f3f3f3</color>
     <color name="colorDirtyWhite">#ebe6e6</color>
     <color name="colorGrayPink">#e8d4b4</color>
-    <color name="colorOrange">#393e46</color>
+    <color name="colorOrange">#dc4712</color>
+    <color name="colorTransparentWhite">#cccccc</color>
 </resources>

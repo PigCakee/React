@@ -27,4 +27,5 @@ class Vibrator(activity: Activity?){
             }
         }
     }
+    //TODO make vibrator a singleton
 }

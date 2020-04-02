@@ -27,6 +27,7 @@ class DuelsGameFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //TODO implement the viewPager
         Log.d("Game", "Started")
         val binding: DuelsGameFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.duels_game_fragment, container, false)
         val view = binding.root

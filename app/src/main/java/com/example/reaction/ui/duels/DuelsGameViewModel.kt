@@ -147,6 +147,7 @@ class DuelsGameViewModel : ViewModel() {
             endgameLayoutVisibility.set(View.VISIBLE)
             winText.set("You won!")
             player.money += reward
+            player.save(sharedPreferences!!)
         }
 
         if (enemyScore.get() == 1) {

@@ -1,16 +1,21 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.reaction.ui.shop
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.reaction.R
-import com.example.reaction.game.Player
-import com.example.reaction.util.Vibrator
+import com.example.reaction.util.PAGES_NUMBER
+import com.example.reaction.util.SliderAdapter
+
 
 class ShopFragment : Fragment() {
     companion object {
@@ -18,11 +23,11 @@ class ShopFragment : Fragment() {
             = ShopFragment()
     }
 
-    private lateinit var viewModel: ShopViewModel
-    private var sharedPreferences: SharedPreferences? = null
-    private var player = Player.getInstance()
-    private var milliseconds = 50L
-    private val vibrator = Vibrator(activity)
+    private lateinit var viewPager: ViewPager
+    private lateinit var dotsLayout: LinearLayout
+    private lateinit var sliderAdapter: SliderAdapter
+    private lateinit var sliderDots: Array<TextView?>
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,20 +39,45 @@ class ShopFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ShopViewModel::class.java)
-        //TODO: use viewModel
+        dotsLayout = activity!!.findViewById(R.id.dotsLayout)
+        viewPager = activity!!.findViewById(R.id.viewPager)
+        sliderAdapter = SliderAdapter(context!!, layoutInflater)
 
-        sharedPreferences = activity?.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
-        if (sharedPreferences != null) {
-            player.load(sharedPreferences!!)
-        }
+        viewPager.adapter = sliderAdapter
+
+        addDotsIndicator()
+
+        viewPager.addOnPageChangeListener(object : OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+            override fun onPageSelected(position: Int) {
+                if (sliderDots.isNotEmpty()){
+                    for (i in sliderDots.indices) {
+                        if (i == position) sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorWhite))
+                        else sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorTransparentWhite))
+                    }
+                }
+            }
+        })
     }
 
-    override fun onPause() {
-        super.onPause()
-        sharedPreferences = activity?.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
-        if (sharedPreferences != null) {
-            player.save(sharedPreferences!!)
+    private fun addDotsIndicator(){
+        sliderDots = arrayOfNulls(PAGES_NUMBER)
+        for (i in sliderDots.indices) {
+            sliderDots[i] = TextView(context)
+            sliderDots[i]!!.text = Html.fromHtml("&#8226;")
+            sliderDots[i]!!.textSize = 35f
+            sliderDots[i]!!.setTextColor(activity!!.resources.getColor(R.color.colorTransparentWhite))
+
+            dotsLayout.addView(sliderDots[i])
         }
+
+
     }
+
 }
