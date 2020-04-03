@@ -51,9 +51,9 @@ class Enemy(val name: String, context: Context) {
         }
         fun newEnemyByNumber(number: Int, context: Context): Enemy{
             val name = when (number){
-                1 -> "John"
-                2 -> "Jack"
-                3 -> "Dave"
+                0 -> "John"
+                1 -> "Jack"
+                2 -> "Dave"
                 else -> ""
             }
             return newEnemy(name, context)

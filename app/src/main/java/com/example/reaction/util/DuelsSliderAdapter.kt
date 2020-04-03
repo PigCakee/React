@@ -10,22 +10,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.example.reaction.R
 
-const val PAGES_NUMBER = 3
-
-class SliderAdapter(private var context: Context, private var layoutInflater: LayoutInflater) : PagerAdapter() {
+class DuelsSliderAdapter(private var context: Context, private var layoutInflater: LayoutInflater) : PagerAdapter() {
 
     private val slideImages
             = arrayOf(
-        R.drawable.revolver1,
-        R.drawable.revolver2,
-        R.drawable.revolver3
+        R.drawable.bandit_john,
+        R.drawable.bandit_jack,
+        R.drawable.bandit_dave
     )
 
     private val slideHeaders
             = arrayOf(
-        "Revolver 1",
-        "Revolver 2",
-        "Revolver 3"
+        "Bandit John",
+        "Bandit Jack",
+        "Bandit Dave"
     )
 
     private val slideDescriptions
@@ -46,15 +44,15 @@ class SliderAdapter(private var context: Context, private var layoutInflater: La
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         layoutInflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view: View = layoutInflater.inflate(R.layout.shop_slide_layout, container, false)
+        val view: View = layoutInflater.inflate(R.layout.duels_slide_layout, container, false)
 
-        val gunImageView: ImageView = view.findViewById(R.id.gunImageView)
-        val gunTextView: TextView = view.findViewById(R.id.gunTextView)
-        val descriptionTextView: TextView = view.findViewById(R.id.descriptionTextView)
+        val banditImageView: ImageView = view.findViewById(R.id.avatarImageView)
+        val headTextView: TextView = view.findViewById(R.id.headTextView)
+        val descTextView: TextView = view.findViewById(R.id.descTextView)
 
-        gunImageView.setImageResource(slideImages[position])
-        gunTextView.text = slideHeaders[position]
-        descriptionTextView.text = slideDescriptions[position]
+        banditImageView.setImageResource(slideImages[position])
+        headTextView.text = slideHeaders[position]
+        descTextView.text = slideDescriptions[position]
 
         container.addView(view)
 

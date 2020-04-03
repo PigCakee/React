@@ -12,4 +12,5 @@
     <string name="duels">Duels</string>
     <string name="playWithFriend">Play with friend</string>
     <string name="enemyImageView">Enemy imageView</string>
+    <string name="play">Play</string>
 </resources>

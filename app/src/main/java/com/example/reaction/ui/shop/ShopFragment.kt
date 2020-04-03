@@ -14,7 +14,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.reaction.R
 import com.example.reaction.util.PAGES_NUMBER
-import com.example.reaction.util.SliderAdapter
+import com.example.reaction.util.ShopSliderAdapter
 
 
 class ShopFragment : Fragment() {
@@ -25,7 +25,7 @@ class ShopFragment : Fragment() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var dotsLayout: LinearLayout
-    private lateinit var sliderAdapter: SliderAdapter
+    private lateinit var sliderAdapter: ShopSliderAdapter
     private lateinit var sliderDots: Array<TextView?>
 
 
@@ -40,8 +40,8 @@ class ShopFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         dotsLayout = activity!!.findViewById(R.id.dotsLayout)
-        viewPager = activity!!.findViewById(R.id.viewPager)
-        sliderAdapter = SliderAdapter(context!!, layoutInflater)
+        viewPager = activity!!.findViewById(R.id.shopViewPager)
+        sliderAdapter = ShopSliderAdapter(context!!, layoutInflater)
 
         viewPager.adapter = sliderAdapter
 
