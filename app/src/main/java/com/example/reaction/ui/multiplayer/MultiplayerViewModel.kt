@@ -1,21 +1,25 @@
 package com.example.reaction.ui.multiplayer
 
 import android.app.Activity
+import android.content.Context
 import android.os.CountDownTimer
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import com.example.reaction.R
 import com.example.reaction.util.Vibrator
 import kotlin.math.absoluteValue
 
 
 class MultiplayerViewModel : ViewModel() {
     var activity: Activity? = null
-    private var vibrator = Vibrator(activity)
+    var context: Context? = null
+
+    private var vibrator = Vibrator.getInstance()
     private val milliseconds = 10L
     var zeroTime: Long = 0
 
     var readyTextView = ObservableField<String>()
-    //var readyTextViewColor: Color = //TODO implement color changes
+    var readyTextViewColor = ObservableField<Int>()
     var readyTextViewClickable = ObservableField<Boolean>()
 
     var firstPlayerScore = ObservableField<String>()
@@ -33,8 +37,9 @@ class MultiplayerViewModel : ViewModel() {
     var isTicking: Boolean = false
 
     fun playGame(){
-        vibrator = Vibrator(activity)
+        vibrator.activity = activity
 
+        readyTextViewColor.set(context!!.getColor(R.color.colorGold))
         readyTextView.set("Start")
         readyTextViewClickable.set(true)
 
@@ -51,8 +56,6 @@ class MultiplayerViewModel : ViewModel() {
 
     fun playRound(){
         vibrator.vibrate(milliseconds)
-
-        //readyTextViewColor = R.color.colorPrimaryRed //TODO implement color changes
 
         firstPlayerButtonClickable.set(true)
         secondPlayerButtonClickable.set(true)

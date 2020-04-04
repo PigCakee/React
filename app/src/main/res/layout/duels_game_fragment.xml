@@ -115,6 +115,7 @@
             android:text="@{viewModel.readyTextView}"
             android:clickable="@{viewModel.readyTextViewClickable}"
             android:onClick="@{(view) -> viewModel.playRound()}"
+            android:textColor="@{viewModel.readyTextViewColor}"
             app:layout_constraintBottom_toTopOf="@+id/playerScoreTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

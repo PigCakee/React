@@ -3,6 +3,7 @@ package com.example.reaction.ui.duels
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
@@ -13,6 +14,7 @@ import com.example.reaction.game.Gun
 import com.example.reaction.game.Player
 import com.example.reaction.util.Vibrator
 import kotlin.math.absoluteValue
+import com.example.reaction.R
 
 class DuelsGameViewModel : ViewModel() {
     var activity: Activity? = null
@@ -20,7 +22,7 @@ class DuelsGameViewModel : ViewModel() {
 
     var removeFragment: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
-    private var vibrator = Vibrator(activity)
+    private var vibrator = Vibrator.getInstance()
     private val milliseconds = 10L
 
     private var sharedPreferences: SharedPreferences? = null
@@ -35,7 +37,7 @@ class DuelsGameViewModel : ViewModel() {
     var zeroTime: Long = 0
 
     var readyTextView = ObservableField<String>()
-    //var readyTextViewColor: Color = //TODO implement color changes
+    var readyTextViewColor = ObservableField<Int>()
     var readyTextViewClickable = ObservableField<Boolean>()
 
     private var playerTime: Long = Long.MAX_VALUE
@@ -54,6 +56,7 @@ class DuelsGameViewModel : ViewModel() {
     private var reward = 0
 
     fun playGame(){
+        vibrator.activity = activity
         if (context != null) {
             sharedPreferences =
                 activity?.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
@@ -76,14 +79,14 @@ class DuelsGameViewModel : ViewModel() {
             enemyScore.set(0)
             playerScore.set(0)
 
+            readyTextViewColor.set(context!!.getColor(R.color.colorGold))
             readyTextView.set("Start")
             readyTextViewClickable.set(true)
-            playerButtonClickable.set(true)
+            playerButtonClickable.set(false)
         }
     }
 
     fun playRound(){
-        //TODO set the layout
         vibrator.vibrate(milliseconds)
         if (context != null) {
             readyTextView.set("Ready...")
@@ -122,6 +125,7 @@ class DuelsGameViewModel : ViewModel() {
         if (isTicking && enemyScore.get() != null) {
             enemyScore.set((enemyScore.get()!! + 1))
             playerButtonClickable.set(false)
+            //TODO wait for timer to stop
             //TODO animate miss shot
             //TODO animate enemy shooting down player
         }

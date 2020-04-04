@@ -4,15 +4,19 @@ package com.example.reaction.ui.shop
 
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.reaction.R
+import com.example.reaction.databinding.ShopFragmentBinding
 import com.example.reaction.util.PAGES_NUMBER
 import com.example.reaction.util.ShopSliderAdapter
 
@@ -27,6 +31,7 @@ class ShopFragment : Fragment() {
     private lateinit var dotsLayout: LinearLayout
     private lateinit var sliderAdapter: ShopSliderAdapter
     private lateinit var sliderDots: Array<TextView?>
+    private lateinit var viewModel: ShopViewModel
 
 
     override fun onCreateView(
@@ -34,7 +39,13 @@ class ShopFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.shop_fragment, container, false)
+        val binding: ShopFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.shop_fragment, container, false)
+        val view = binding.root
+
+        binding.viewModel = ViewModelProviders.of(this).get(ShopViewModel::class.java)
+        viewModel = binding.viewModel as ShopViewModel
+        viewModel.activity = activity
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -57,6 +68,7 @@ class ShopFragment : Fragment() {
             }
             override fun onPageSelected(position: Int) {
                 if (sliderDots.isNotEmpty()){
+                    viewModel.weaponSelected = position
                     for (i in sliderDots.indices) {
                         if (i == position) sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorWhite))
                         else sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorTransparentWhite))

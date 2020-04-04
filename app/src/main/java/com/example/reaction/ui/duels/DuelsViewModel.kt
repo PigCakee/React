@@ -15,7 +15,7 @@ class DuelsViewModel : ViewModel() {
     var activity: Activity? = null
     var context: Context? = null
 
-    private var vibrator = Vibrator(activity)
+    private var vibrator = Vibrator.getInstance()
     private val milliseconds = 10L
 
     val changeFragment: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
@@ -26,6 +26,7 @@ class DuelsViewModel : ViewModel() {
     private var player = Player.getInstance()
 
     fun playGame(number: Int){
+        vibrator.activity = activity
         //TODO if rating < enemy visualize it
         if (context != null) {
             vibrator.vibrate(milliseconds)

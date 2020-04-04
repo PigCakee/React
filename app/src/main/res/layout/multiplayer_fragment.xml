@@ -28,6 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@{multiplayerViewModel.readyTextViewColor}"
             android:onClick="@{(view) -> multiplayerViewModel.playRound()}"
             android:clickable="@{multiplayerViewModel.readyTextViewClickable}"/>
 

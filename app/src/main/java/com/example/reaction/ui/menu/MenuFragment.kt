@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.reaction.R
 import com.example.reaction.ui.duels.DuelsFragment
 import com.example.reaction.ui.multiplayer.MultiplayerFragment
@@ -23,9 +22,8 @@ class MenuFragment : Fragment() {
             = MenuFragment()
     }
 
-    private lateinit var viewModel: MenuViewModel
     private var milliseconds = 10L
-    private lateinit var vibrator: Vibrator
+    private var vibrator: Vibrator = Vibrator.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,9 +35,8 @@ class MenuFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MenuViewModel::class.java)
 
-        vibrator = Vibrator(activity)
+        vibrator.activity = activity
 
         tournamentTextView.setOnClickListener {
             vibrator.vibrate(milliseconds)
