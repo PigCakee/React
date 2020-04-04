@@ -19,6 +19,7 @@ class MenuActivity : AppCompatActivity() {
             .commit()
     }
 
-    //TODO set the UI (big play button and screen picture
+    //TODO set the UI (big play button and screen picture)
+    //TODO create default player, shop, enemy, tournament
 }
 

@@ -19,10 +19,29 @@ class ShopViewModel : ViewModel() {
     private val milliseconds = 15L
     private val vibrator = Vibrator.getInstance()
 
+    private val shop: Shop = Shop.getInstance()
+
     private var sharedPreferences: SharedPreferences? = null
     var activity: Activity? = null
 
-    var selectText = ObservableField("")
+    val buySelectButton = ObservableField("Select") //TODO fix the "first page" problem
+
+    fun setupBuySelectButton(){
+
+        sharedPreferences = activity!!.getSharedPreferences(shop.preferences, Context.MODE_PRIVATE)
+        shop.load(sharedPreferences!!)
+
+        sharedPreferences = activity!!.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
+        player.load(sharedPreferences!!)
+
+        if (shop.gunArray[weaponSelected]){
+            val gun = Gun.makeGunByNumber(weaponSelected)
+
+            if (player.gun.toString() == gun.toString()) buySelectButton.set("Selected")
+            else buySelectButton.set("Select")
+
+        } else buySelectButton.set("Buy")
+    }
 
     fun buyWeapon(){
         sharedPreferences = activity!!.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
@@ -35,7 +54,6 @@ class ShopViewModel : ViewModel() {
             player.money -= gun.cost
             player.save(sharedPreferences!!)
             //TODO play buy sound
-            selectText.set("Selected")
         } else {
             //TODO notify player that he has not enough money to buy
         }

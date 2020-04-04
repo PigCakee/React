@@ -10,19 +10,19 @@ class Gun (val name: String) {
         fun makeGun(name: String): Gun {
             val gun = Gun(name)
             when (name){
-               "revolver1" -> {
+               "revolver0" -> {
                    gun.delay = 100L
                    //gun.icon =
                    gun.load = 5
                    gun.cost = 100
                }
-                "revolver2" -> {
+                "revolver1" -> {
                     gun.delay = 75L
                     //gun.icon =
                     gun.load = 5
                     gun.cost = 300
                 }
-                "revolver3" -> {
+                "revolver2" -> {
                     gun.delay = 50L
                     //gun.icon =
                     gun.load = 5
@@ -34,10 +34,10 @@ class Gun (val name: String) {
 
         fun makeGunByNumber(number: Int): Gun{
             val name = when(number){
-                0 -> "revolver1"
-                1 -> "revolver2"
-                2 -> "revolver3"
-                else -> "revolver1"
+                0 -> "revolver0"
+                1 -> "revolver1"
+                2 -> "revolver2"
+                else -> "revolver0"
             }
             return makeGun(name)
         }

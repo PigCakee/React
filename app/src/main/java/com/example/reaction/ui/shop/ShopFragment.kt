@@ -69,6 +69,7 @@ class ShopFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 if (sliderDots.isNotEmpty()){
                     viewModel.weaponSelected = position
+                    viewModel.setupBuySelectButton()
                     for (i in sliderDots.indices) {
                         if (i == position) sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorWhite))
                         else sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorTransparentWhite))
