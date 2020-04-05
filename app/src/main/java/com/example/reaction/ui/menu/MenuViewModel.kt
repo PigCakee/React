@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
+import com.example.reaction.game.EnemyArray
 import com.example.reaction.game.Player
 import com.example.reaction.ui.shop.Shop
 
@@ -19,5 +20,9 @@ class MenuViewModel : ViewModel() {
         val shop = Shop.getInstance()
         sharedPreferences = activity!!.getSharedPreferences(shop.preferences, Context.MODE_PRIVATE)
         shop.load(sharedPreferences!!)
+
+        val enemyArray = EnemyArray.getInstance()
+        sharedPreferences = activity!!.getSharedPreferences(enemyArray.preferences, Context.MODE_PRIVATE)
+        enemyArray.load(sharedPreferences!!)
     }
 }
