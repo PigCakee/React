@@ -25,7 +25,7 @@
         android:background="@android:color/transparent"
         android:fontFamily="@font/roboto_slab_bold"
         android:text="@{viewModel.buySelectButton}"
-        android:onClick="@{(view) -> viewModel.buyWeapon()}"
+        android:onClick="@{(view) -> viewModel.onBuySelectButtonPress()}"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
         app:layout_constraintEnd_toEndOf="parent"

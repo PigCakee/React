@@ -35,27 +35,40 @@ class ShopViewModel : ViewModel() {
         } else buySelectButton.set("Buy")
     }
 
-    fun buyWeapon(){
+    fun onBuySelectButtonPress(){
         sharedPreferences = activity!!.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
         vibrator.activity = activity
-        vibrator.vibrate(milliseconds)
+
         gun = Gun.makeGunByNumber(weaponSelected)
-        if (player.money > gun.cost) {
-            Log.d("Gun", "Purchased")
+        if (shop.gunArray[weaponSelected] && buySelectButton.get()!! == "Select"){
+            vibrator.vibrate(milliseconds)
             player.gun = gun
-            player.money -= gun.cost
             player.save(sharedPreferences!!)
+            Log.d("Gun", "Selected")
+
+            buySelectButton.set("Selected")
+        }
+
+        if (!shop.gunArray[weaponSelected] && player.money >= gun.cost){
+            vibrator.vibrate(milliseconds)
+            player.money -= gun.cost
+            player.gun = gun
+            player.save(sharedPreferences!!)
+            Log.d("Gun", "Purchased")
             //TODO play buy sound
-        } else {
+
+            sharedPreferences = activity!!.getSharedPreferences(shop.preferences, Context.MODE_PRIVATE)
+
+            shop.gunArray[weaponSelected] = true
+            shop.save(sharedPreferences!!)
+
+            buySelectButton.set("Selected")
+        }
+
+        if (!shop.gunArray[weaponSelected] && player.money < gun.cost){
+            vibrator.vibrate(milliseconds)
+            Log.d("Gun", "Not enough money")
             //TODO notify player that he has not enough money to buy
         }
-    }
-
-    fun onSelectButtonPress(){
-        sharedPreferences = activity!!.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
-
-        gun = Gun.makeGunByNumber(weaponSelected)
-        player.gun = gun
-        player.save(sharedPreferences!!)
     }
 }
