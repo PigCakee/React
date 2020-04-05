@@ -1,4 +1,4 @@
-package com.example.reaction.game
+package com.example.reaction.entities
 
 class Gun (val name: String) {
     var delay = 0L

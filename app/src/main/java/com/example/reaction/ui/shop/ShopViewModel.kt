@@ -6,8 +6,9 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
-import com.example.reaction.game.Gun
-import com.example.reaction.game.Player
+import com.example.reaction.entities.Gun
+import com.example.reaction.entities.Player
+import com.example.reaction.entities.Shop
 import com.example.reaction.util.Vibrator
 
 class ShopViewModel : ViewModel() {

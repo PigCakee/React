@@ -1,4 +1,4 @@
-package com.example.reaction.game
+package com.example.reaction.entities
 
 class Tournament(val name: String) {
     var requiredRating = 0

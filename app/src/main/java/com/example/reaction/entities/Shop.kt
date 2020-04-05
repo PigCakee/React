@@ -1,4 +1,4 @@
-package com.example.reaction.ui.shop
+package com.example.reaction.entities
 
 import android.content.SharedPreferences
 import android.util.Log
@@ -18,7 +18,7 @@ object Shop {
         }
     }
 
-    fun getInstance(): Shop{
+    fun getInstance(): Shop {
         if (instance == null) createInstance()
         Log.d("Shop", "Loaded")
         return instance!!
@@ -36,5 +36,6 @@ object Shop {
         for (i in gunArray.indices){
             gunArray[i] = sharedPreferences.getBoolean("$i", false)
         }
+        gunArray[0] = true
     }
 }

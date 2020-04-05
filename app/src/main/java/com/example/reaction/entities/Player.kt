@@ -1,4 +1,4 @@
-package com.example.reaction.game
+package com.example.reaction.entities
 
 import android.content.SharedPreferences
 import android.util.Log

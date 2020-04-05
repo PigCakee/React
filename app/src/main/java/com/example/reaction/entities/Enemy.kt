@@ -1,4 +1,4 @@
-package com.example.reaction.game
+package com.example.reaction.entities
 
 
 class Enemy(val name: String) {
@@ -31,7 +31,7 @@ class Enemy(val name: String) {
                 }
                 "Jack" -> {
                     enemy.reaction = 450L
-                    enemy.requiredRating = 15
+                    enemy.requiredRating = 10
                 }
                 "Dave" -> {
                     enemy.reaction = 250L

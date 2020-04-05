@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
-import com.example.reaction.game.EnemyArray
-import com.example.reaction.game.Player
-import com.example.reaction.ui.shop.Shop
+import com.example.reaction.entities.EnemyArray
+import com.example.reaction.entities.Player
+import com.example.reaction.entities.Shop
 
 class MenuViewModel : ViewModel() {
     var activity: Activity? = null

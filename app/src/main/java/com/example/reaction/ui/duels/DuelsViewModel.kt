@@ -7,8 +7,8 @@ import android.widget.ImageView
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.reaction.game.Enemy
-import com.example.reaction.game.Player
+import com.example.reaction.entities.Enemy
+import com.example.reaction.entities.Player
 import com.example.reaction.util.Vibrator
 
 
