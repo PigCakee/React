@@ -49,7 +49,7 @@ class DuelsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val viewModel = ViewModelProviders.of(this).get(DuelsViewModel::class.java)
+        val viewModel: DuelsViewModel = ViewModelProviders.of(this).get(DuelsViewModel::class.java)
         viewModel.avatarImageView = avatarImageView
 
         dotsLayout = activity!!.findViewById(R.id.dotsDuelsLayout)
@@ -59,6 +59,7 @@ class DuelsFragment : Fragment() {
         viewPager.adapter = sliderAdapter
 
         addDotsIndicator()
+        viewModel.setUpEnemies()
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
@@ -70,6 +71,7 @@ class DuelsFragment : Fragment() {
             }
             override fun onPageSelected(position: Int) {
                 viewModel.number = position
+                viewModel.setUpEnemies()
                 if (sliderDots.isNotEmpty()){
                     for (i in sliderDots.indices) {
                         if (i == position) sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorWhite))

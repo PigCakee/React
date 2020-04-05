@@ -6,7 +6,7 @@ import android.util.Log
 object EnemyArray {
     const val preferences = "enemyPrefs"
 
-    val array: Array<Boolean>
+    val array: Array<Boolean> //Массив для хранения информации о том, побежден ли соперник или нет
             = arrayOf(false, false, false)
 
     private var instance: EnemyArray? = null

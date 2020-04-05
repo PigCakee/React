@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.widget.ImageView
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.reaction.game.Enemy
@@ -15,7 +16,7 @@ class DuelsViewModel : ViewModel() {
     var activity: Activity? = null
     var context: Context? = null
 
-    private var vibrator = Vibrator.getInstance()
+    private var vibrator: Vibrator = Vibrator.getInstance()
     private val milliseconds = 10L
 
     val changeFragment: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
@@ -23,20 +24,32 @@ class DuelsViewModel : ViewModel() {
     var avatarImageView: ImageView? = null
     var number = 0
 
-    private var player = Player.getInstance()
+    private var player: Player = Player.getInstance()
+
+    val isLocked = ObservableField<String>()
+
+    val playButtonClickable = ObservableField<Boolean>()
+
+    fun setUpEnemies(){
+        val enemy: Enemy = Enemy.newEnemyByNumber(number)
+        if (player.ratingDuels >= enemy.requiredRating){
+            isLocked.set("Unlocked")
+            playButtonClickable.set(true)
+        } else {
+            isLocked.set("Locked")
+            playButtonClickable.set(false)
+        }
+    }
 
     fun playGame(number: Int){
+        Log.d("EnemySelected", number.toString())
         vibrator.activity = activity
-        //TODO if rating < enemy visualize it
         if (context != null) {
             vibrator.vibrate(milliseconds)
-            val enemy = Enemy.newEnemyByNumber(number)
 
             Log.d("PLAYER_RATING_DUELS", player.ratingDuels.toString())
-            if (player.ratingDuels >= enemy.requiredRating) {
-                changeFragment.value = true
-                changeFragment.value = false
-            }
+            changeFragment.value = true
+            changeFragment.value = false
         }
     }
 
