@@ -11,10 +11,9 @@ import com.example.reaction.game.Player
 import com.example.reaction.util.Vibrator
 
 class ShopViewModel : ViewModel() {
-    //TODO: check if gun is already bought and edit text in gun to "select" or "selected"
     var weaponSelected = 0
-    private val player = Player.getInstance()
-    private var gun = Gun.makeGunByNumber(weaponSelected)
+    private val player: Player = Player.getInstance()
+    private var gun: Gun = Gun.makeGunByNumber(weaponSelected)
 
     private val milliseconds = 15L
     private val vibrator = Vibrator.getInstance()
@@ -24,16 +23,9 @@ class ShopViewModel : ViewModel() {
     private var sharedPreferences: SharedPreferences? = null
     var activity: Activity? = null
 
-    val buySelectButton = ObservableField("Select") //TODO fix the "first page" problem
+    val buySelectButton: ObservableField<String> = ObservableField("Select") //TODO fix the "first page" problem
 
     fun setupBuySelectButton(){
-
-        sharedPreferences = activity!!.getSharedPreferences(shop.preferences, Context.MODE_PRIVATE)
-        shop.load(sharedPreferences!!)
-
-        sharedPreferences = activity!!.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
-        player.load(sharedPreferences!!)
-
         if (shop.gunArray[weaponSelected]){
             val gun = Gun.makeGunByNumber(weaponSelected)
 
@@ -60,7 +52,6 @@ class ShopViewModel : ViewModel() {
     }
 
     fun onSelectButtonPress(){
-        Log.d("Select", player.gun.toString())
         sharedPreferences = activity!!.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
 
         gun = Gun.makeGunByNumber(weaponSelected)

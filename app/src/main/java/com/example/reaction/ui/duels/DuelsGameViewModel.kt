@@ -57,33 +57,27 @@ class DuelsGameViewModel : ViewModel() {
 
     fun playGame(){
         vibrator.activity = activity
-        if (context != null) {
-            sharedPreferences =
-                activity?.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
-            if (sharedPreferences != null) {
-                player.load(sharedPreferences!!)
-                Log.d("Guns", "playerGun${player.gun!!.delay} gun${gun.delay}")
-                gun = player.gun!!
-            }
+        sharedPreferences = activity!!.getSharedPreferences(player.preferences, Context.MODE_PRIVATE)
+        gun = player.gun!!
 
-            removeFragment.value = false
-            endgameLayoutVisibility.set(View.INVISIBLE)
+        removeFragment.value = false
+        endgameLayoutVisibility.set(View.INVISIBLE)
 
-            val enemy: Enemy = Enemy.newEnemyByNumber(enemyNumber, context!!)
-            enemyReaction = enemy.reaction
-            reward = enemy.reward
+        val enemy: Enemy = Enemy.newEnemyByNumber(enemyNumber)
+        enemyReaction = enemy.reaction
+        reward = enemy.reward
 
-            playerButtonText.set("Shoot")
-            enemyButtonText.set("Enemy")
+        playerButtonText.set("Shoot")
+        enemyButtonText.set("Enemy")
 
-            enemyScore.set(0)
-            playerScore.set(0)
+        enemyScore.set(0)
+        playerScore.set(0)
 
-            readyTextViewColor.set(context!!.getColor(R.color.colorGold))
-            readyTextView.set("Start")
-            readyTextViewClickable.set(true)
-            playerButtonClickable.set(false)
-        }
+        readyTextViewColor.set(context!!.getColor(R.color.colorGold))
+        readyTextView.set("Start")
+        readyTextViewClickable.set(true)
+        playerButtonClickable.set(false)
+
     }
 
     fun playRound(){

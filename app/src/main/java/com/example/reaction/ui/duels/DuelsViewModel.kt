@@ -30,7 +30,7 @@ class DuelsViewModel : ViewModel() {
         //TODO if rating < enemy visualize it
         if (context != null) {
             vibrator.vibrate(milliseconds)
-            val enemy = Enemy.newEnemyByNumber(number, context!!)
+            val enemy = Enemy.newEnemyByNumber(number)
 
             Log.d("PLAYER_RATING_DUELS", player.ratingDuels.toString())
             if (player.ratingDuels >= enemy.requiredRating) {

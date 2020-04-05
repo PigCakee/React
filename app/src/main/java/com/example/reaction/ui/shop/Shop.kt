@@ -1,16 +1,18 @@
 package com.example.reaction.ui.shop
 
 import android.content.SharedPreferences
+import android.util.Log
 
 object Shop {
     var gunArray: Array<Boolean>
             = arrayOf(true, true, false)
 
-    val preferences: String = "shopPrefs"
+    const val preferences: String = "shopPrefs"
     private var instance: Shop? = null
 
     @Synchronized
     private fun createInstance(){
+        Log.d("Shop", "Created")
         if (instance == null) {
             instance = Shop
         }
@@ -18,6 +20,7 @@ object Shop {
 
     fun getInstance(): Shop{
         if (instance == null) createInstance()
+        Log.d("Shop", "Loaded")
         return instance!!
     }
 
