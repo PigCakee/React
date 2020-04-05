@@ -109,5 +109,7 @@ class DuelsFragment : Fragment() {
 
             dotsLayout.addView(sliderDots[i])
         }
+
+        sliderDots[0]!!.setTextColor(resources.getColor(R.color.colorWhite))
     }
 }

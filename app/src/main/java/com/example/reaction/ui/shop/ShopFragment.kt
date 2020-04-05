@@ -57,6 +57,7 @@ class ShopFragment : Fragment() {
         viewPager.adapter = sliderAdapter
 
         addDotsIndicator()
+        viewModel.setupBuySelectButton()
 
         viewPager.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
@@ -90,7 +91,7 @@ class ShopFragment : Fragment() {
             dotsLayout.addView(sliderDots[i])
         }
 
-
+        sliderDots[0]!!.setTextColor(resources.getColor(R.color.colorWhite))
     }
 
 }

@@ -16,18 +16,18 @@ class ShopViewModel : ViewModel() {
     private var gun: Gun = Gun.makeGunByNumber(weaponSelected)
 
     private val milliseconds = 15L
-    private val vibrator = Vibrator.getInstance()
+    private val vibrator: Vibrator = Vibrator.getInstance()
 
     private val shop: Shop = Shop.getInstance()
 
     private var sharedPreferences: SharedPreferences? = null
     var activity: Activity? = null
 
-    val buySelectButton: ObservableField<String> = ObservableField("Select") //TODO fix the "first page" problem
+    val buySelectButton: ObservableField<String> = ObservableField()
 
     fun setupBuySelectButton(){
         if (shop.gunArray[weaponSelected]){
-            val gun = Gun.makeGunByNumber(weaponSelected)
+            val gun: Gun = Gun.makeGunByNumber(weaponSelected)
 
             if (player.gun.toString() == gun.toString()) buySelectButton.set("Selected")
             else buySelectButton.set("Select")
