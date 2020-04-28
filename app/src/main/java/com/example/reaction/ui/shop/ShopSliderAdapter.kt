@@ -1,4 +1,4 @@
-package com.example.reaction.util
+package com.example.reaction.ui.shop
 
 import android.content.Context
 import android.view.LayoutInflater

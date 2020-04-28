@@ -12,9 +12,8 @@ import com.example.reaction.ui.duels.DuelsFragment
 import com.example.reaction.ui.multiplayer.MultiplayerFragment
 import com.example.reaction.ui.shop.ShopFragment
 import com.example.reaction.ui.tournament.TournamentFragment
-import com.example.reaction.util.Vibrator
+import com.example.reaction.util.vibrator.Vibrator
 import kotlinx.android.synthetic.main.menu_fragment.*
-import android.util.Log
 import androidx.lifecycle.ViewModelProviders
 
 class MenuFragment : Fragment() {

@@ -1,9 +1,9 @@
-package com.example.reaction
+package com.example.reaction.ui.menu
 
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.example.reaction.ui.menu.MenuFragment
+import com.example.reaction.R
 
 class MenuActivity : AppCompatActivity() {
 

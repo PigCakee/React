@@ -11,7 +11,7 @@ import androidx.lifecycle.*
 import com.example.reaction.entities.Enemy
 import com.example.reaction.entities.Gun
 import com.example.reaction.entities.Player
-import com.example.reaction.util.Vibrator
+import com.example.reaction.util.vibrator.Vibrator
 import kotlin.math.absoluteValue
 import com.example.reaction.R
 import com.example.reaction.entities.EnemyArray

@@ -6,7 +6,7 @@ import android.os.CountDownTimer
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.reaction.R
-import com.example.reaction.util.Vibrator
+import com.example.reaction.util.vibrator.Vibrator
 import kotlin.math.absoluteValue
 
 

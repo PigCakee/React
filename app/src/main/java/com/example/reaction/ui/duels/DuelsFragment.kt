@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.reaction.ui.duels
 
 import android.os.Bundle
@@ -16,8 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.example.reaction.R
 import com.example.reaction.databinding.DuelsFragmentBinding
-import com.example.reaction.util.DuelsSliderAdapter
-import com.example.reaction.util.PAGES_NUMBER
+import com.example.reaction.util.view.PAGES_NUMBER
 import kotlinx.android.synthetic.main.duels_slide_layout.*
 
 class DuelsFragment : Fragment() {
@@ -54,7 +55,10 @@ class DuelsFragment : Fragment() {
 
         dotsLayout = activity!!.findViewById(R.id.dotsDuelsLayout)
         viewPager = activity!!.findViewById(R.id.duelsViewPager)
-        sliderAdapter = DuelsSliderAdapter(context!!, layoutInflater)
+        sliderAdapter = DuelsSliderAdapter(
+            context!!,
+            layoutInflater
+        )
 
         viewPager.adapter = sliderAdapter
 

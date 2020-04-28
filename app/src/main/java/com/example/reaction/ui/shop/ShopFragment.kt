@@ -4,7 +4,6 @@ package com.example.reaction.ui.shop
 
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.reaction.R
 import com.example.reaction.databinding.ShopFragmentBinding
-import com.example.reaction.util.PAGES_NUMBER
-import com.example.reaction.util.ShopSliderAdapter
+import com.example.reaction.util.view.PAGES_NUMBER
 
 
 class ShopFragment : Fragment() {
@@ -52,7 +50,10 @@ class ShopFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         dotsLayout = activity!!.findViewById(R.id.dotsLayout)
         viewPager = activity!!.findViewById(R.id.shopViewPager)
-        sliderAdapter = ShopSliderAdapter(context!!, layoutInflater)
+        sliderAdapter = ShopSliderAdapter(
+            context!!,
+            layoutInflater
+        )
 
         viewPager.adapter = sliderAdapter
 

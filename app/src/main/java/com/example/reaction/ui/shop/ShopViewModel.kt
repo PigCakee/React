@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.example.reaction.entities.Gun
 import com.example.reaction.entities.Player
 import com.example.reaction.entities.Shop
-import com.example.reaction.util.Vibrator
+import com.example.reaction.util.vibrator.Vibrator
 
 class ShopViewModel : ViewModel() {
     var weaponSelected = 0

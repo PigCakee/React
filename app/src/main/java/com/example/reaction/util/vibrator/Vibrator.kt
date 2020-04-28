@@ -1,26 +1,26 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.reaction.util
+package com.example.reaction.util.vibrator
 
 import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 
 object Vibrator{
     var activity: Activity? = null
-    private var instance: com.example.reaction.util.Vibrator? = null
+    private var instance: com.example.reaction.util.vibrator.Vibrator? = null
 
     @Synchronized
     private fun createInstance() {
         if (instance == null) {
-            instance = Vibrator
+            instance =
+                Vibrator
         }
     }
 
-    fun getInstance(): com.example.reaction.util.Vibrator{
+    fun getInstance(): com.example.reaction.util.vibrator.Vibrator {
         if (instance == null) createInstance()
         return instance!!
     }
