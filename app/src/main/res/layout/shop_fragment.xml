@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View">
-
-        </import>
         <variable
-            name="viewModel"
+            name="model"
             type="com.example.reaction.ui.shop.ShopViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,8 +21,8 @@
         android:layout_marginBottom="100dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/roboto_slab_bold"
-        android:text="@{viewModel.buySelectButton}"
-        android:onClick="@{(view) -> viewModel.onBuySelectButtonPress()}"
+        android:text="@{model.buySelectButton}"
+        android:onClick="@{() -> model.onBuySelectButtonClick()}"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
         app:layout_constraintEnd_toEndOf="parent"
