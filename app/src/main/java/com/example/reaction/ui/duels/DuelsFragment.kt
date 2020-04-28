@@ -4,22 +4,18 @@ package com.example.reaction.ui.duels
 
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.example.reaction.R
 import com.example.reaction.databinding.DuelsFragmentBinding
+import com.example.reaction.util.vibrator.Vibrator
 import com.example.reaction.util.view.PAGES_NUMBER
-import kotlinx.android.synthetic.main.duels_slide_layout.*
+import com.example.reaction.util.viewmodel.viewModel
 
 class DuelsFragment : Fragment() {
     companion object {
@@ -27,8 +23,9 @@ class DuelsFragment : Fragment() {
             = DuelsFragment()
     }
 
-    private lateinit var viewPager: ViewPager
-    private lateinit var dotsLayout: LinearLayout
+    private val model by viewModel<DuelsViewModel>()
+    private lateinit var binding: DuelsFragmentBinding
+
     private lateinit var sliderAdapter: DuelsSliderAdapter
     private lateinit var sliderDots: Array<TextView?>
 
@@ -37,35 +34,39 @@ class DuelsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding: DuelsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.duels_fragment, container, false)
-        val view: View = binding.root
-
-        binding.viewModel = ViewModelProviders.of(this).get(DuelsViewModel::class.java)
-        (binding.viewModel as DuelsViewModel).activity = activity
-        (binding.viewModel as DuelsViewModel).context = this.context
-
-        return view
+        binding = DataBindingUtil.inflate(inflater, R.layout.duels_fragment, container, false)
+        binding.model = model
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val viewModel: DuelsViewModel = ViewModelProviders.of(this).get(DuelsViewModel::class.java)
-        viewModel.avatarImageView = avatarImageView
-
-        dotsLayout = activity!!.findViewById(R.id.dotsDuelsLayout)
-        viewPager = activity!!.findViewById(R.id.duelsViewPager)
-        sliderAdapter = DuelsSliderAdapter(
-            context!!,
-            layoutInflater
-        )
-
-        viewPager.adapter = sliderAdapter
+        sliderAdapter = DuelsSliderAdapter(context!!, layoutInflater)
+        binding.viewPager.adapter = sliderAdapter
 
         addDotsIndicator()
-        viewModel.setUpEnemies()
 
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        model.setUpEnemies()
+
+        handleViewPager()
+
+        model.playGameCommand.observe(this){
+            playGame()
+        }
+
+        model.vibratorCommand.observe(this){
+            val vibrator: Vibrator = Vibrator.getInstance()
+            vibrator.vibrate(model.milliseconds)
+        }
+
+        model.soundCommand.observe(this){
+            //TODO play sound
+        }
+    }
+
+    private fun handleViewPager() {
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(
                 position: Int,
@@ -73,10 +74,11 @@ class DuelsFragment : Fragment() {
                 positionOffsetPixels: Int
             ) {
             }
+
             override fun onPageSelected(position: Int) {
-                viewModel.number = position
-                viewModel.setUpEnemies()
-                if (sliderDots.isNotEmpty()){
+                model.enemyNumber = position
+                model.setUpEnemies()
+                if (sliderDots.isNotEmpty()) {
                     for (i in sliderDots.indices) {
                         if (i == position) sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorWhite))
                         else sliderDots[i]!!.setTextColor(resources.getColor(R.color.colorTransparentWhite))
@@ -84,25 +86,19 @@ class DuelsFragment : Fragment() {
                 }
             }
         })
+    }
 
+    private fun playGame() {
+        val bundle = Bundle()
+        bundle.putInt("EnemyNumber", model.enemyNumber)
 
-        val liveData: LiveData<Boolean> = viewModel.changeFragment
-        Log.d("Message", viewModel.changeFragment.value.toString())
-        liveData.observe(viewLifecycleOwner, Observer {
-            if (viewModel.changeFragment.value == true) {
+        val duelsGameFragment = DuelsGameFragment.newInstance()
+        duelsGameFragment.arguments = bundle
 
-                val bundle = Bundle()
-                bundle.putInt("EnemyNumber", viewModel.number)
-
-                val duelsGameFragment = DuelsGameFragment.newInstance()
-                duelsGameFragment.arguments = bundle
-
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, duelsGameFragment)
-                    ?.addToBackStack("backStack")
-                    ?.commit()
-            }
-        })
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.container, duelsGameFragment)
+            ?.addToBackStack("backStack")
+            ?.commit()
     }
 
     private fun addDotsIndicator(){
@@ -113,7 +109,7 @@ class DuelsFragment : Fragment() {
             sliderDots[i]!!.textSize = 35f
             sliderDots[i]!!.setTextColor(activity!!.resources.getColor(R.color.colorTransparentWhite))
 
-            dotsLayout.addView(sliderDots[i])
+            binding.dots.addView(sliderDots[i])
         }
 
         sliderDots[0]!!.setTextColor(resources.getColor(R.color.colorWhite))

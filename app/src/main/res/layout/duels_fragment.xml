@@ -5,11 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View">
-        </import>
-
         <variable
-            name="viewModel"
+            name="model"
             type="com.example.reaction.ui.duels.DuelsViewModel" />
     </data>
 
@@ -25,7 +22,7 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/roboto_slab"
             android:textAlignment="center"
-            android:text="@{viewModel.isLocked}"
+            android:text="@{model.isLocked}"
             android:textColor="@color/colorPrimaryWhite"
             app:layout_constraintBottom_toTopOf="@+id/playButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,15 +35,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
             android:background="@android:color/transparent"
-            android:onClick="@{(view) -> viewModel.playGame(viewModel.number)}"
+            android:onClick="@{() -> model.handlePlayButtonClick()}"
             android:text="@string/play"
-            android:clickable="@{viewModel.playButtonClickable}"
-            app:layout_constraintBottom_toBottomOf="@+id/duelsViewPager"
+            android:clickable="@{model.playButtonClickable}"
+            app:layout_constraintBottom_toBottomOf="@+id/viewPager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/duelsViewPager"
+            android:id="@+id/viewPager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
@@ -65,7 +62,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
-                android:id="@+id/dotsDuelsLayout"
+                android:id="@+id/dots"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -81,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:onClick="@{(view) -> viewModel.onLeftButtonClick()}"
+                android:onClick="@{() -> model.onLeftButtonClick()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -92,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:onClick="@{(view) -> viewModel.onRightButtonClick()}"
+                android:onClick="@{() -> model.onRightButtonClick()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
