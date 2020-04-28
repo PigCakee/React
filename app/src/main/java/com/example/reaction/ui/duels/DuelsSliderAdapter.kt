@@ -4,11 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.PagerAdapter
 import com.example.reaction.R
+import com.example.reaction.databinding.DuelsSlideLayoutBinding
 
 class DuelsSliderAdapter(private var context: Context, private var layoutInflater: LayoutInflater) : PagerAdapter() {
 
@@ -42,21 +42,20 @@ class DuelsSliderAdapter(private var context: Context, private var layoutInflate
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        layoutInflater =
-            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view: View = layoutInflater.inflate(R.layout.duels_slide_layout, container, false)
+        val binding = DataBindingUtil.inflate<DuelsSlideLayoutBinding>(
+            LayoutInflater.from(this.context),
+            R.layout.duels_slide_layout,
+            container,
+            false
+        )
 
-        val banditImageView: ImageView = view.findViewById(R.id.avatarImageView)
-        val headTextView: TextView = view.findViewById(R.id.headTextView)
-        val descTextView: TextView = view.findViewById(R.id.descTextView)
+        binding.avatarImageView.setImageResource(slideImages[position])
+        binding.headTextView.text = slideHeaders[position]
+        binding.descTextView.text = slideDescriptions[position]
 
-        banditImageView.setImageResource(slideImages[position])
-        headTextView.text = slideHeaders[position]
-        descTextView.text = slideDescriptions[position]
+        container.addView(binding.root)
 
-        container.addView(view)
-
-        return view
+        return binding.root
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
